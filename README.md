@@ -5,7 +5,7 @@
 Früg is a finance tracking web application designed to help users manage their income, expenses, and savings. It provides a comprehensive dashboard to visualize financial data, set budgets, and monitor transactions. The app will later integrate cryptocurrency investment features, making it a versatile tool for personal financial management.
 
 ## Features
-
+x
 - **Dashboard**: Overview of the user's financial status including balance, income, expenses, and savings.
 - **Transactions**: Detailed list of all income and expense transactions.
 - **Budget Tracking**: Visual representation of budget categories with progress bars.
@@ -90,7 +90,7 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Contact
 
-For any questions or feedback, please contact [yourname] at [youremail@example.com].
+For any questions or feedback, please contact Patrick Vicente at patrickvicenteph@gmail.com.
 
 ## Acknowledgments
 
