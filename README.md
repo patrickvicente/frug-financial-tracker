@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# Früg Financial Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Früg is a finance tracking web application designed to help users manage their income, expenses, and savings. It provides a comprehensive dashboard to visualize financial data, set budgets, and monitor transactions. The app will later integrate cryptocurrency investment features, making it a versatile tool for personal financial management.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Dashboard**: Overview of the user's financial status including balance, income, expenses, and savings.
+- **Transactions**: Detailed list of all income and expense transactions.
+- **Budget Tracking**: Visual representation of budget categories with progress bars.
+- **Data Visualization**: Financial and expense data visualizations (to be implemented).
+- **Responsive Design**: Accessible on both desktop and mobile devices.
+- **Cross-Browser Compatibility**: Works on all modern browsers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: HTML, CSS, JavaScript, React, Redux
+- **Charting Library**: Chart.js (for future data visualization)
+- **Testing**: Jest, Enzyme for unit tests; Selenium or Cypress for end-to-end tests
+- **Version Control**: Git
+- **Deployment**: Vercel, Netlify
+- **Design Tools**: Figma (for wireframes)
 
-### `npm test`
+## Project Management
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Tool**: GitHub Projects
 
-### `npm run build`
+## Wireframes
+ --- To add wireframes
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/frug-financial-tracker.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd frug-finance-tracker
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+4. Start the development server:
+   ```sh
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Dashboard**: View the overall financial status.
+2. **Add Transactions**: Use the forms to add new income or expense transactions.
+3. **Budget Management**: Set and track budgets for different categories.
+4. **Visualize Data**: (To be implemented) View charts and graphs of financial data.
 
-### `npm run eject`
+## Running Tests
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Unit Tests**:
+  ```sh
+  npm test
+  ```
+- **End-to-End Tests**:
+  ```sh
+  npm run e2e
+  ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Future Work
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Crypto Integration**: Add features to track cryptocurrency investments.
+2. **Enhanced Data Visualization**: Implement comprehensive charts and graphs for financial data.
+3. **User Authentication**: Allow users to securely log in and manage their personal data.
+4. **Notifications**: Implement alerts for budget limits and other financial thresholds.
+5. **Progressive Web App**: Make the application a PWA for offline functionality.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Design System
 
-## Learn More
+- **Color Palette**: Green for positive financial status, red for negative, neutral tones for background and text.
+- **Typography**: Clean, modern sans-serif fonts for readability.
+- **Icons**: Simple and intuitive icons for navigation and actions.
+- **Animations**: Smooth transitions and animations to enhance user experience.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License.
 
-### Code Splitting
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-### Analyzing the Bundle Size
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+For any questions or feedback, please contact [yourname] at [youremail@example.com].
 
-### Making a Progressive Web App
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Thanks to all contributors and users who have provided valuable feedback.
+- Special thanks to the open-source community for providing the tools and libraries used in this project.
