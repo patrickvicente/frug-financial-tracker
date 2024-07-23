@@ -2,10 +2,11 @@ body, :root {
   margin: 0;
   padding: 0;
   background-color: #121213;
+  color: #F1F0F5;
   font-family: inter;
   width: 100%;
 }
 
-h1. h2, h3, p {
-  color: #F1F0F5;
+h1, h3, p {
+  Color: #F1F0F5;
 }
