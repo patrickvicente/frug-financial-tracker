@@ -9,3 +9,10 @@
     flex-direction: column;
     flex: 1;
 }
+
+button {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    color: #F1F0F5;
+}
