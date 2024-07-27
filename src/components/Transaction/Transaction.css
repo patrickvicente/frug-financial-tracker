@@ -1,0 +1,21 @@
+.Transaction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 16px;
+    text-transform: capitalize;
+    align-items: center;
+    height: 35px;
+}
+
+.icon-txn {
+    font-size: 20px;
+}
+
+.income-txn .icon-txn {
+    color: #83D25D;
+}
+
+.expense-txn .icon-txn {
+    color: #E15E42;
+}

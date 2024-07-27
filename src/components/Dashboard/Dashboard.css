@@ -1,12 +1,15 @@
 .Dashboard {
     flex: 1;
     padding: 20px;
+    height: 100%;
 }
 
 .grid {
+    flex: 1;
+    height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 300px;
-    grid-template-rows: 1fr 3fr 3fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr minmax(200px, 300px);
+    grid-template-rows: 120px 1fr 1fr 1.5fr;
     gap: 10px;
 }
 
@@ -15,6 +18,20 @@
     border-radius: 5px;
     padding: 20px;
     display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.card-info {
+    margin-top: 5px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.card-info .button {
+    align-self: flex-end;
     font-size: 18px;
 }
 
@@ -28,17 +45,17 @@
 }
 
 .finances-analytics {
-    grid-row: 2 / 3;
+    grid-row: 2 / 4;
     grid-column: 1 / 3;
 }
 
 .expenses-analytics {
-    grid-row: 2 / 3;
+    grid-row: 2 / 4;
     grid-column: 3 / 5;
 }
 
 .goals {
-    grid-row: 3 / 4;
+    grid-row: 3 / 5;
     grid-column: 5 / 6;
 }
 
@@ -48,7 +65,7 @@
 }
 
 .transactions {
-    grid-row: 3 / 4;
+    grid-row: 4 / 5;
     grid-column: 1 / 5;
 }
 
