@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TransactionForm.css";
+import { useDispatch } from "react-redux";
 
 function TransactionForm() {
-    // TO DO add props to check wherher its expense or income
+    const [ formData, setFormData ] = useState({
+        type: "income",
+        description: "",
+        date: "",
+        amount: "",
+        category: "",
+    });
+
+    const dispatch = useDispatch();
+
     return (
         <div className={`TransactionForm`}>
             <form >

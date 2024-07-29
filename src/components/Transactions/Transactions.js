@@ -19,7 +19,23 @@ const transactionsList = [
         date: "July 4, 2024",
         amount: 1521.25,
         category: "Salary",
-        },
+    },
+    {
+        id: 123454,
+        type: "income",
+        description: "Salary",
+        date: "July 23, 2024",
+        amount: 1578.58,
+        category: "Salary",
+    },
+    {
+        id: 546781,
+        type: "expense",
+        description: "Rent",
+        date: "July 4, 2024",
+        amount: 1521.25,
+        category: "Salary",
+    },
 ]
 
 function Transactions() {

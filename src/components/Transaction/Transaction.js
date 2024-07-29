@@ -5,8 +5,8 @@ import { formatCurrency } from "../../utils/utils";
 
 function Transaction({type, description, date, category, id, amount}) {
 
-    const typeIcon = type === "income" ? <Icon className="icon icon-txn" icon="solar:round-arrow-up-bold" /> 
-        : <Icon className="icon icon-txn" icon="solar:round-arrow-down-bold" />
+    const typeIcon = type === "income" ? <Icon className="icon icon-txn" icon="solar:round-arrow-down-bold" /> 
+        : <Icon className="icon icon-txn" icon="solar:round-arrow-up-bold" />
 
     
     return (

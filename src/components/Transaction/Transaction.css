@@ -6,6 +6,7 @@
     text-transform: capitalize;
     align-items: center;
     height: 35px;
+    border-bottom: #fff solid 1px;
 }
 
 .icon-txn {

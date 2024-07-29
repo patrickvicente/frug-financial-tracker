@@ -5,11 +5,15 @@ import Button from "../common/Button";
 import Transactions from "../Transactions/Transactions";
 import Modal from "../common/Modal";
 import TransactionForm from "../TransactionForm/TransactionForm";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllTransactions } from "../../redux/selectors/transactionsSelectors";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
+    const transactions = useSelector(selectAllTransactions);
+    const dispatch = useDispatch();
 
-    const openModal = (type) => setModalOpen(true);
+    const handleAddTransaction = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
 
@@ -30,7 +34,7 @@ function Dashboard() {
                         </div>
                         <div className="card-info">
                             Income<br/>$3,200.00
-                            <Button className="add-button" onClick={openModal} />
+                            <Button className="add-button" onClick={handleAddTransaction} />
                         </div>
                     </div>
                     <div className="card expenses">
@@ -39,7 +43,7 @@ function Dashboard() {
                         </div>
                         <div className="card-info">
                             Expenses<br/>$2,800.00
-                            <Button className="add-button" onClick={openModal} />
+                            <Button className="add-button" onClick={handleAddTransaction} />
                         </div>
                     </div>
                     <div className="card savings">
@@ -54,14 +58,14 @@ function Dashboard() {
                     <div className="card expenses-analytics">Expenses</div>
                     <div className="card transactions">
                         Transactions
-                        <Transactions />
+                        <Transactions transactions={transactions} />
                     </div>
                     <div className="card budget">Budget</div>
                     <div className="card goals">Goals</div>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={closeModal} >
-                <TransactionForm />
+                <TransactionForm closeModal={closeModal} />
             </Modal>
         </div>
     )
