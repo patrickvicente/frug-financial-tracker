@@ -1,60 +1,34 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Transaction from "../Transaction/Transaction";
+import "./Transactions.css";
 
+function Transactions({transactions}) {
 
-// Hard coded transactions list
-const transactionsList = [
-    {
-    id: 123454,
-    type: "income",
-    description: "Salary",
-    date: "July 23, 2024",
-    amount: 1578.58,
-    category: "Salary",
-    },
-    {
-        id: 546781,
-        type: "expense",
-        description: "Rent",
-        date: "July 4, 2024",
-        amount: 1521.25,
-        category: "Salary",
-    },
-    {
-        id: 123454,
-        type: "income",
-        description: "Salary",
-        date: "July 23, 2024",
-        amount: 1578.58,
-        category: "Salary",
-    },
-    {
-        id: 546781,
-        type: "expense",
-        description: "Rent",
-        date: "July 4, 2024",
-        amount: 1521.25,
-        category: "Salary",
-    },
-]
+    useEffect(() => {
+        console.log("Transactions component re-rendered with transactions:", transactions);
+      }, [transactions]);
 
-function Transactions() {
-    if (transactionsList.length === 0) {
+    if (!transactions || transactions.length === 0) {
         return <p>No transactions to display.</p>;
     }
-    
+
     return (
-        <div className="TransactionsList">
-            {transactionsList.map((transaction) => (
-                <Transaction
-                    id={transaction.id}
-                    description={transaction.description}
-                    amount={transaction.amount}
-                    category={transaction.category}
-                    date={transaction.date}
-                    type={transaction.type}
-                />
-            ))}
+        <div className="transactions-list   ">
+            {transactions.map((transaction) => {
+                const { id, description, amount, category, date, type } = transaction;
+
+                return ( 
+                    <Transaction
+                        key={id}
+                        id={id}
+                        description={description}
+                        amount={amount}
+                        category={category}
+                        date={date}
+                        type={type}
+                    />
+                );
+            })}
         </div>
     );
 };

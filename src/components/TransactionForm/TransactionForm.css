@@ -5,7 +5,7 @@ form {
     justify-content: space-between;
 }
 
-input {
+input, select {
     margin: 10px auto;
     display: flex;
     width: 304px;
@@ -17,7 +17,6 @@ input {
     border-radius: 5px;
     background: #5D5D5D;
     border: none;
-    color: #cecece;
 }
 
 .button-txn {
@@ -26,5 +25,9 @@ input {
     margin-top: 20px;
     padding: 8px 42px;
     border-radius: 15px;
-    background: #15AD70
+    background: #15AD70;
+}
+
+.button-txn:hover {
+    background: #378465;
 }

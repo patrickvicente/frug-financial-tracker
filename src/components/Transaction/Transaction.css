@@ -7,10 +7,29 @@
     align-items: center;
     height: 35px;
     border-bottom: #fff solid 1px;
+    width: 100%;
+}
+
+.transaction-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between items */
+    width: 100%;
+}
+
+.Transaction p {
+    margin: 0;
+    padding: 0 10px;
+    width: 20%;
+}
+
+.amount {
+    text-align: right;
 }
 
 .icon-txn {
     font-size: 20px;
+    width: 50px;
 }
 
 .income-txn .icon-txn {

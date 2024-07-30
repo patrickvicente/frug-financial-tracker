@@ -10,8 +10,8 @@ function App() {
     <div className="App" >
       <NavBar />
       <div className="App-main-container">
-        < Header />
-        <Dashboard />
+        <Header />
+        <Dashboard  />
       </div>
     </div>
   );

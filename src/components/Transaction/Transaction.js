@@ -13,12 +13,14 @@ function Transaction({type, description, date, category, id, amount}) {
         <div id={id}
             className={`Transaction ${type === "income" ? "income-txn" : "expense-txn"}`}
         >
-            {typeIcon}
-            <p>{type}</p>
-            <p>{description}</p>
-            <p>{formatCurrency(amount)}</p>
-            <p>{date}</p>
-            <p>{category}</p>
+            <div className="transaction-content">
+                {typeIcon}
+                <p>{type}</p>
+                <p>{description}</p>
+                <p className="amount">{formatCurrency(amount)}</p>
+                <p>{date}</p>
+                <p>{category}</p>
+            </div>
         </div>
     );
 };

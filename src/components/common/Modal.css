@@ -28,3 +28,7 @@ background: linear-gradient(107deg, #3D3D3D 8.78%, #1F1F1F 92.99%);
   font-size: 24px;
   cursor: pointer;
 }
+
+.close-button:hover {
+  color: #E15E42;
+}

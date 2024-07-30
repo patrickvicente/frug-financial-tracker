@@ -7,15 +7,35 @@ import Modal from "../common/Modal";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllTransactions } from "../../redux/selectors/transactionsSelectors";
+import { formatCurrency } from "../../utils/utils";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
+    const [ transactionType, setTransactionType ] = useState("");
     const transactions = useSelector(selectAllTransactions);
-    const dispatch = useDispatch();
-
-    const handleAddTransaction = () => setModalOpen(true);
+    const handleAddTransaction = (type) => {
+        setTransactionType(type);
+        setModalOpen(true);
+    };
     const closeModal = () => setModalOpen(false);
 
+    const calculateTotals = (transactions) => {
+        let totalIncome = 0;
+        let totalExpenses = 0;
+        transactions.forEach(transaction =>  {
+            if (transaction.type === "income" ) {
+                totalIncome += transaction.amount;
+            } else if (transaction.type === "expense") {
+                totalExpenses += transaction.amount
+            }
+        });
+
+        const balance = totalIncome - totalExpenses;
+        return { totalIncome, totalExpenses, balance };
+    };
+
+    const { totalIncome, totalExpenses, balance } = calculateTotals(transactions);
+    console.log("Totals: ", totalIncome, totalExpenses, balance )
 
     return (
         <div className="Dashboard">
@@ -25,7 +45,7 @@ function Dashboard() {
                             <Icon className="icon dashboard-icon" icon="lucide:wallet" />
                         </div>
                         <div className="card-info">
-                            Balance<br/>$2,500.13
+                            Balance<br/>{formatCurrency(balance)}
                         </div>
                     </div>
                     <div className="card income">
@@ -33,8 +53,8 @@ function Dashboard() {
                             <Icon className="icon dashboard-icon" icon="mdi:hand-coin-outline" />
                         </div>
                         <div className="card-info">
-                            Income<br/>$3,200.00
-                            <Button className="add-button" onClick={handleAddTransaction} />
+                            Income<br/>{formatCurrency(totalIncome)}
+                            <Button className="add-button" onClick={() => handleAddTransaction("income")} />
                         </div>
                     </div>
                     <div className="card expenses">
@@ -42,8 +62,8 @@ function Dashboard() {
                             <Icon className="icon dashboard-icon" icon="uil:money-insert" />
                         </div>
                         <div className="card-info">
-                            Expenses<br/>$2,800.00
-                            <Button className="add-button" onClick={handleAddTransaction} />
+                            Expenses<br/>{formatCurrency(totalExpenses)}
+                            <Button className="add-button" onClick={() => handleAddTransaction("expense")} />
                         </div>
                     </div>
                     <div className="card savings">
@@ -65,7 +85,8 @@ function Dashboard() {
             </div>
 
             <Modal isOpen={isModalOpen} onClose={closeModal} >
-                <TransactionForm closeModal={closeModal} />
+                <TransactionForm closeModal={closeModal}
+                type={transactionType} />
             </Modal>
         </div>
     )
