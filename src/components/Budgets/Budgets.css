@@ -1,0 +1,9 @@
+.budgets-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.budgets-list {
+    padding: 0 auto;
+    margin-top: 10px;
+}

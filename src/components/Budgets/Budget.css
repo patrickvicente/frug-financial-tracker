@@ -1,0 +1,37 @@
+.budget-container {
+    padding: 0 auto;
+}
+
+.budget-details {
+    margin: 0;
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.budget-details p {
+    text-transform: capitalize;
+    font-family: Inter;
+    font-size: 14px;
+}
+
+.budget-bar {
+    width: 100%;
+    height: 5px;
+    background-color: gray;
+    border-radius: 5px;
+    border: 1px;
+}
+
+.filled {
+    height: 5px;
+    background-color: #15AD70;
+    border-radius: 5px;
+    border: none;
+}
+
+.budget-container:hover {
+    background-color: rgb(253, 249, 249, .1);
+    border-radius: 5px;
+}

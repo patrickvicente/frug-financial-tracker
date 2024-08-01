@@ -1,0 +1,13 @@
+.btn {
+    cursor: pointer;
+}
+
+.button-add {
+    background-color: #067045;
+    width: 50px;
+    border-radius: 5px;
+}
+
+.button-add:hover {
+    background-color: grey;
+}

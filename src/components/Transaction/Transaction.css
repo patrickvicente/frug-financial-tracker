@@ -39,3 +39,9 @@
 .expense-txn .icon-txn {
     color: #E15E42;
 }
+
+.transaction-content:hover {
+    background-color: rgb(253, 249, 249, .1);
+    border-radius: 5px;
+    border: none;
+}

@@ -19,6 +19,7 @@
 .icon-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .nav-icon {
@@ -30,4 +31,14 @@
 .Nav-bottom {
     position: fixed;
     bottom: 25px;
+}
+
+.nav-icon {
+    width: 100%;
+}
+
+.icon-container:hover {
+    background-color: rgb(253, 249, 249, .08);
+    border-radius: 5px;
+    border: none;
 }

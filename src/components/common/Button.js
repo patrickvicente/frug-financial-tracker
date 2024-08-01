@@ -1,23 +1,16 @@
 import React from "react";
 import "./Button.css";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
-function Button ({ onClick, type="button", className="", disabled=false }) {
-
-    const buttonIcon = () => {
-        return className === "add-button" ?
-            <Icon className="icon button-icon" icon="zondicons:add-solid" /> : 
-            <Icon className="icon button-icon" icon="zondicons:minus-solid" />
-    };
+function Button ({label, onClick, type="button", className="", disabled=false }) {
 
     return (
         <button
             type={type}
-            className={`button ${className}`}
+            className={`btn ${className}`}
             onClick={onClick}
             disabled={disabled}
         >
-            {buttonIcon()}
+            {label}
         </button>
     );
 };

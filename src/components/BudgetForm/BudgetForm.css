@@ -1,0 +1,12 @@
+.button-budget {
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    padding: 8px 42px;
+    border-radius: 15px;
+    background: #15AD70;
+}
+
+.button-budget:hover {
+    background: #378465;
+}

@@ -5,16 +5,26 @@ import Button from "../common/Button";
 import Transactions from "../Transactions/Transactions";
 import Modal from "../common/Modal";
 import TransactionForm from "../TransactionForm/TransactionForm";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import { selectAllTransactions } from "../../redux/selectors/transactionsSelectors";
+import { selectAllBudgets, selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
 import { formatCurrency } from "../../utils/utils";
+import Budgets from "../Budgets/Budgets";
+import BudgetForm from "../BudgetForm/BudgetForm";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
+    const [ formType, setFormType ] = useState("transaction")
     const [ transactionType, setTransactionType ] = useState("");
     const transactions = useSelector(selectAllTransactions);
-    const handleAddTransaction = (type) => {
-        setTransactionType(type);
+    const budgets = useSelector(selectAllBudgets);
+    const budgetCategories = useSelector(selectBudgetCategories);
+    
+    console.log("Budget Categories", budgetCategories);
+
+    const handleAdd = (form, txnType) => {
+        setFormType(form)
+        setTransactionType(txnType);
         setModalOpen(true);
     };
     const closeModal = () => setModalOpen(false);
@@ -35,7 +45,7 @@ function Dashboard() {
     };
 
     const { totalIncome, totalExpenses, balance } = calculateTotals(transactions);
-    console.log("Totals: ", totalIncome, totalExpenses, balance )
+    console.log("Totals: ", totalIncome, totalExpenses, balance );
 
     return (
         <div className="Dashboard">
@@ -54,7 +64,7 @@ function Dashboard() {
                         </div>
                         <div className="card-info">
                             Income<br/>{formatCurrency(totalIncome)}
-                            <Button className="add-button" onClick={() => handleAddTransaction("income")} />
+                            <Button label="Add" className="button-add" onClick={() => handleAdd("transaction","income")} />
                         </div>
                     </div>
                     <div className="card expenses">
@@ -63,7 +73,7 @@ function Dashboard() {
                         </div>
                         <div className="card-info">
                             Expenses<br/>{formatCurrency(totalExpenses)}
-                            <Button className="add-button" onClick={() => handleAddTransaction("expense")} />
+                            <Button label="Add" className="button-add" onClick={() => handleAdd("transaction","expense")} />
                         </div>
                     </div>
                     <div className="card savings">
@@ -78,15 +88,18 @@ function Dashboard() {
                     <div className="card expenses-analytics">Expenses</div>
                     <div className="card transactions">
                         Transactions
-                        <Transactions transactions={transactions} />
+                        <Transactions transactions={transactions} budgets={budgets} />
                     </div>
-                    <div className="card budget">Budget</div>
+                    <Budgets budgets={budgets} handleAdd={handleAdd} />
                     <div className="card goals">Goals</div>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={closeModal} >
-                <TransactionForm closeModal={closeModal}
-                type={transactionType} />
+                {
+                    formType === "transaction" 
+                    ? <TransactionForm closeModal={closeModal} type={transactionType} categories={budgetCategories} />
+                    : <BudgetForm closeModal={closeModal} />
+                }
             </Modal>
         </div>
     )
