@@ -11,6 +11,7 @@ import { selectAllBudgets, selectBudgetCategories } from "../../redux/selectors/
 import { formatCurrency } from "../../utils/utils";
 import Budgets from "../Budgets/Budgets";
 import BudgetForm from "../BudgetForm/BudgetForm";
+import FinancesChart from "../Analytics/FinancesChart";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
@@ -32,20 +33,24 @@ function Dashboard() {
     const calculateTotals = (transactions) => {
         let totalIncome = 0;
         let totalExpenses = 0;
+        let balance = 0;
+        const data = [];
+
         transactions.forEach(transaction =>  {
             if (transaction.type === "income" ) {
                 totalIncome += transaction.amount;
             } else if (transaction.type === "expense") {
                 totalExpenses += transaction.amount
             }
+            balance = totalIncome - totalExpenses;
+            data.push({date: transaction.date, balance})
         });
 
-        const balance = totalIncome - totalExpenses;
-        return { totalIncome, totalExpenses, balance };
+        return { totalIncome, totalExpenses, balance, data };
     };
 
-    const { totalIncome, totalExpenses, balance } = calculateTotals(transactions);
-    console.log("Totals: ", totalIncome, totalExpenses, balance );
+    const { totalIncome, totalExpenses, balance, data } = calculateTotals(transactions);
+    console.log("Totals: ", totalIncome, totalExpenses, balance, data );
 
     return (
         <div className="Dashboard">
@@ -84,7 +89,10 @@ function Dashboard() {
                             Savings<br/>$2,500.13
                         </div>
                     </div>
-                    <div className="card finances-analytics">Finances</div>
+                    <div className="card finances-analytics">
+                        Finances
+                        <FinancesChart data={data} />
+                    </div>
                     <div className="card expenses-analytics">Expenses</div>
                     <div className="card transactions">
                         Transactions

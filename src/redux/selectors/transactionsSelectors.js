@@ -22,6 +22,13 @@ export const selectAllTransactions = (state) => {
     return allIds.map(id => byId[id]);
 };
 
+export const selectTransactionsByMonth = (state, month) => {
+    if (state.budgets.byMonth[month]) {
+        return Object.values(state.budgets.byMonth[month].categories).flatMap(category => category.transactions);
+    }
+    return null;
+};
+
 // Select a transaction by id
 
 //  Select Transactions by type

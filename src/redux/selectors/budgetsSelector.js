@@ -1,13 +1,11 @@
 // Select all budgets
  export const selectAllBudgets = (state) => {
-    if (!state) {
+    if (!state || !state.budgets || !state.budgets.byCategory) {
         return [];
     }
 
-    const { byCategory } = state.budgets;
-    const selectedBudget = Object.keys(byCategory).map( category => byCategory[category]);
-    console.log("Selector", selectedBudget);
-    return selectedBudget
+    const { byCategory } = state.budgets
+    return Object.values(byCategory);
  };
 
  export const selectBudgetCategories = (state) => {
@@ -17,6 +15,7 @@
 
     const { byCategory } = state.budgets
     return Object.keys(byCategory);
+    
 
  };
 

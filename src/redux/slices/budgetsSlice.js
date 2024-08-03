@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import transactionsSlice from "./transactionsSlice";
 
 const initialState = {
     byCategory: {
@@ -6,7 +7,19 @@ const initialState = {
             category: "clothing",
             budget: 1000,
             total: 1500,
+            transactions: [],
         }
+    },
+    byMonth: {
+        total: 0,
+        /*
+            total: 0,
+            "August 2024": {
+                budget: 0,
+                total: 0,
+                transactions: []
+            }, 
+        */
     },
 };
 
@@ -17,27 +30,50 @@ const budgetsSlice = createSlice({
         addBudget: (state, action) => {
             const { category, budget } = action.payload;
 
-            if (category in state.byCategory || budget < 0) {
-                // need to check how to handle this
-                return null;
-            } else {
+            if (!state.byCategory[category] && budget >= 0) {
                 state.byCategory[category] = {
-                    category: category,
-                    budget: budget, 
-                    total: 0};
-            };
+                    category,
+                    budget,
+                    total: 0,
+                    transactions: []
+                };
+            }
         },
         editBudget: (state, action) => {
             const { category, budget } = action.payload;
-            state.byCategory[category].budget = budget;
-
+            if (state.byCategory[category]) {
+                state.byCategory[category].budget = budget;    
+            }
+            
             // TO DO Implement Change name of category
         },
         addBudgetTransaction: (state, action) => {
-            const { category, amount } = action.payload;
-            if (category in state.byCategory || amount >= 0) {
-                state.byCategory[category].total += amount;
+            const { category, amount, date } = action.payload;
+            const month = new Date(date).toLocaleString("default", {month: "long", year: "numeric"});
+
+            if (!state.byMonth[month]) {
+                // Creates an object if new month
+                state.byMonth[month] = { categories: {}}
+            };
+
+            if (!state.byMonth[month].categories[category]) {
+                // Creates a category object if new object
+                state.byMonth[month].categories[category] = { budget: 0, total: 0, transactions: []};
+            };
+
+            if (!state.byCategory[category]) {
+                // create a new category object in the byCategory
+                state.byCategory[category] = {category, budget: 0, total: 0, transactions: []};
             }
+
+            state.byCategory[category].transactions.push(action.payload);
+            state.byCategory[category].total += amount;
+            
+            state.byMonth[month].categories[category].transactions.push(action.payload);
+            state.byMonth[month].categories[category].total += amount;
+
+
+            console.log("Budget state", state);
         },
     }
 });
