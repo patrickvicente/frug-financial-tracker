@@ -3,6 +3,7 @@ import "./TransactionForm.css";
 import { useDispatch } from "react-redux";
 import { addTransaction } from "../../redux/slices/transactionsSlice";
 import { addBudgetTransaction } from "../../redux/slices/budgetsSlice";
+import Button from "../common/Button";
 
 function TransactionForm({closeModal, type, categories}) {
     const [ formData, setFormData ] = useState({
@@ -10,7 +11,8 @@ function TransactionForm({closeModal, type, categories}) {
         description: "",
         date: "",
         amount: "",
-        category: categories.length > 0 ? categories[0] : "",
+        category: "",
+        newCategory: "",
     });
 
     const dispatch = useDispatch();
@@ -22,7 +24,12 @@ function TransactionForm({closeModal, type, categories}) {
         });
     };
 
-    // !!! TO DO handling when form is empty
+    const handleNewCategoryChange = (e) => {
+        setFormData({
+            ...formData,
+            newCategory: e.target.value
+        })
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,11 +40,18 @@ function TransactionForm({closeModal, type, categories}) {
             day: "numeric",
             year: "numeric"
         })
+
+        let selectedCategory = formData.category;
+        if (formData.newCategory) {
+            selectedCategory = formData.newCategory;
+        };
+
         const newTransaction = {
             ...formData,
             id: Date.now(),
             date: formattedDate,
-            amount: parseFloat(formData.amount)
+            amount: parseFloat(formData.amount),
+            category: selectedCategory,
         };
 
         dispatch(addTransaction(newTransaction))
@@ -50,28 +64,47 @@ function TransactionForm({closeModal, type, categories}) {
     };
 
     return (
-        <div className="transaction-form">
-            <form onSubmit={handleSubmit} >
-                <input type="text" placeholder="Description" name="description" value={formData.description} onChange={handleChange} required/>
-                <input type="number" placeholder="Amount" name="amount" value={formData.amount} onChange={handleChange} required/>
-                <input type="date" placeholder="Date" name="date" value={formData.date} onChange={handleChange} required/>
-                <select 
-                    className="transaction-category" 
-                    name="category" 
-                    onChange={handleChange}
-                    value={formData.category}
-                > 
-                    {
-                        categories.length > 0 && categories.map((category) => {
+        <div className="form">
+            <form onSubmit={handleSubmit} className="form-txn">
+                <div className="input-container">
+                    <input type="text" placeholder="Description" name="description" value={formData.description} onChange={handleChange} required/>
+                </div>
+                <div className="input-container">
+                    <input type="number" placeholder="Amount" name="amount" value={formData.amount} onChange={handleChange} required/>
+                </div>
+                <div className="input-container">
+                    <input type="date" placeholder="Date" name="date" value={formData.date} onChange={handleChange} required/>
+                </div>
+                <div className="input-container">
+                    <select 
+                        className="transaction-category" 
+                        name="category" 
+                        onChange={handleChange}
+                        value={formData.category}
+                    > 
+                        {categories.length > 0 && categories.map((category) => {
                             return <option key={category} >{category}</option>
-                        })
-                    }
-                </select>
-                {/* // TO DO handle Add when it's a NEW CATEGORY
-                // ADD transaction type in cat */}
-                <button className="button-txn" type="submit" >
-                    {`Add ${ type === "income" ? "income" : "Expense"}`}
-                </button>
+                        })}
+                        <option value="" >Add New Category</option>
+                    </select>
+
+                    {/* Handles new category */}
+                    {formData.category === "" && (
+                        <input
+                            type="text"
+                            placeholder="New Category"
+                            name="newCategory"
+                            value={formData.newCategory}
+                            onChange={handleNewCategoryChange}
+                            required
+                        />
+                    )}
+                </div>
+                <Button
+                    label={`Add ${ type === "income" ? "Income" : "Expense"}`} 
+                    className="button-txn" type="submit" 
+                />
+                    
             </form>
         </div>
     )

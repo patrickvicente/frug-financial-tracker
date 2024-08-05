@@ -44,10 +44,10 @@ const FinancesChart = ({data}) => {
     
       return (
         <div>
-          <h2>Balance Over Time</h2>
           <Line data={chartData} options={options} />
         </div>
       );
 };
 
 export default FinancesChart;
+

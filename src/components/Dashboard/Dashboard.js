@@ -6,12 +6,13 @@ import Transactions from "../Transactions/Transactions";
 import Modal from "../common/Modal";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import {useSelector } from "react-redux";
-import { selectAllTransactions } from "../../redux/selectors/transactionsSelectors";
+import { selectAllTransactions, selectTransactionsByType } from "../../redux/selectors/transactionsSelectors";
 import { selectAllBudgets, selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
 import { formatCurrency } from "../../utils/utils";
 import Budgets from "../Budgets/Budgets";
 import BudgetForm from "../BudgetForm/BudgetForm";
 import FinancesChart from "../Analytics/FinancesChart";
+import ExpenseChart from "../Analytics/ExpenseChart";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
@@ -20,7 +21,8 @@ function Dashboard() {
     const transactions = useSelector(selectAllTransactions);
     const budgets = useSelector(selectAllBudgets);
     const budgetCategories = useSelector(selectBudgetCategories);
-    
+    const expenseTransactions = useSelector(state => selectTransactionsByType(state, "expense"))
+    console.log("Expenses", expenseTransactions);
     console.log("Budget Categories", budgetCategories);
 
     const handleAdd = (form, txnType) => {
@@ -48,10 +50,9 @@ function Dashboard() {
 
         return { totalIncome, totalExpenses, balance, data };
     };
-
+    console.log(expenseTransactions);
     const { totalIncome, totalExpenses, balance, data } = calculateTotals(transactions);
     console.log("Totals: ", totalIncome, totalExpenses, balance, data );
-
     return (
         <div className="Dashboard">
             <div className="grid">
@@ -93,13 +94,16 @@ function Dashboard() {
                         Finances
                         <FinancesChart data={data} />
                     </div>
-                    <div className="card expenses-analytics">Expenses</div>
+                    <div className="card expenses-analytics">
+                        Expenses
+                        <ExpenseChart categories={budgetCategories} expenses={expenseTransactions} />
+                    </div>
                     <div className="card transactions">
                         Transactions
                         <Transactions transactions={transactions} budgets={budgets} />
                     </div>
                     <Budgets budgets={budgets} handleAdd={handleAdd} />
-                    <div className="card goals">Goals</div>
+                    <div className="card accounts">Accounts</div>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={closeModal} >

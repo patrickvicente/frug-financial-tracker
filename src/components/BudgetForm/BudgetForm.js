@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./BudgetForm.css";
 import { useDispatch } from "react-redux";
 import { addBudget } from "../../redux/slices/budgetsSlice";
+import Button from "../common/Button";
 
 function BudgetForm({closeModal}) {
     const [ formData, setFormData ] =  useState({
@@ -31,23 +32,29 @@ function BudgetForm({closeModal}) {
     }
 
     return (
-        <form onSubmit={handleSubmit} >
-            <input 
-                type="text"
-                placeholder="New Budget Category" 
-                name="category" 
-                value={formData.category}
-                onChange={handleChange}
-            />
-            <input 
-                type="number"
-                placeholder="Amount" 
-                name="budget" 
-                value={formData.budget}
-                onChange={handleChange}
-            />
-            <button className="button-budget" type="submit">Add Budget</button>
-        </form>
+        <div className="form">
+            <form onSubmit={handleSubmit} className="form-budget" >
+                <div className="input-container">
+                    <input 
+                        type="text"
+                        placeholder="New Budget Category" 
+                        name="category" 
+                        value={formData.category}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input-container">
+                    <input 
+                        type="number"
+                        placeholder="Amount" 
+                        name="budget" 
+                        value={formData.budget}
+                        onChange={handleChange}
+                    />
+                </div>
+                <Button label="Add Budget" className="button-budget" type="submit"/>
+            </form>
+        </div>
     );
 };
 

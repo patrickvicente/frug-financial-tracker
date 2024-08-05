@@ -1,33 +1,55 @@
-form {
+
+.form-txn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    height: 100%;
 }
 
-input, select {
-    margin: 10px auto;
-    display: flex;
-    width: 304px;
-    height: 41px;
-    padding: 8px 21px;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    background: #5D5D5D;
-    border: none;
+.input-container {
+    border-radius: 25px;
+    margin: 10px 0;
+    padding: 10px 15px;
+    width: 300px;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
 }
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    border: none;
+    outline: none;
+    color: #ddd;
+    text-align: center;
+    background: none;
+    width: 100%;
+    padding: 8px auto;
+    flex-shrink: 0;
+    background-color: transparent;
+}   
+
+.input-container input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Adjust date picker indicator color for dark background */
+}
+
 
 .button-txn {
-    width: 200px;
+    width: 100%;
     height: 40px;
     margin-top: 20px;
     padding: 8px 42px;
     border-radius: 15px;
     background: #15AD70;
+    transition: background-color .3s;
 }
 
 .button-txn:hover {
-    background: #378465;
+    background-color: transparent;
+    border: 1px solid #15AD70;
+    color: #15AD70;
+    font-weight: bold;
 }

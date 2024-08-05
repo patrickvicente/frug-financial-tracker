@@ -1,3 +1,14 @@
+.form {
+    display: flex;
+}
+
+.form-budget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
 .button-budget {
     width: 200px;
     height: 40px;
@@ -5,8 +16,12 @@
     padding: 8px 42px;
     border-radius: 15px;
     background: #15AD70;
+    transition: background-color .25s;
 }
 
 .button-budget:hover {
-    background: #378465;
+    background-color: transparent;
+    border: 1px solid #15AD70;
+    color: #15AD70;
+    font-weight: bold;
 }

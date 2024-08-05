@@ -32,4 +32,11 @@ export const selectTransactionsByMonth = (state, month) => {
 // Select a transaction by id
 
 //  Select Transactions by type
+// selectors.js
 
+export const selectTransactionsByType = (state, type) => {
+    if (!state || !state.transactions || !state.transactions.byId) {
+        return [];
+    }
+    return Object.values(state.transactions.byId).filter(transaction => transaction.type === type);
+};

@@ -4,10 +4,10 @@ const initialState = {
     byId: {
       1: {
         type: "income",
-        description: "Test",
+        description: "ECA - Salary",
         date: "July 7, 2024",
         amount: 1521.25,
-        category: "Test",
+        category: "Salary",
       }
     },
     allIds: [1]
