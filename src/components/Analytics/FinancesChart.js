@@ -1,10 +1,5 @@
-
 import React, {useState, useEffect}from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
-import 'chartjs-adapter-date-fns';
-
-ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 const FinancesChart = ({data}) => {
     const [chartData, setChartData] = useState({
@@ -27,24 +22,13 @@ const FinancesChart = ({data}) => {
         };
         setChartData(formattedData);
       }, [data]);
+
+      console.log("chart data", chartData);
     
-      const options = {
-        scales: {
-          x: {
-            type: 'time',
-            time: {
-              unit: 'month',
-            },
-          },
-          y: {
-            beginAtZero: true,
-          },
-        },
-      };
-    
+      
       return (
         <div>
-          <Line data={chartData} options={options} />
+          <Line data={chartData} />
         </div>
       );
 };

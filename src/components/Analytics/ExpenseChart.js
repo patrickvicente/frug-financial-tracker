@@ -7,6 +7,7 @@ Chart.register(ArcElement)
 function ExpenseChart({expenses}) {
     const expenseData = expenses && expenses.length > 0 ? expenses.map(expense => expense.amount) : [];
     const categories = expenses && expenses.length > 0 ? expenses.map(expense => expense.category) : [];
+    console.log("chart categories",categories)
     const data={
         labels: categories,
         datasets: [

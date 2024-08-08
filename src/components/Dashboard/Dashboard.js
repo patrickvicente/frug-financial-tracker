@@ -50,7 +50,7 @@ function Dashboard() {
 
         return { totalIncome, totalExpenses, balance, data };
     };
-    console.log(expenseTransactions);
+    
     const { totalIncome, totalExpenses, balance, data } = calculateTotals(transactions);
     console.log("Totals: ", totalIncome, totalExpenses, balance, data );
     return (
@@ -92,7 +92,7 @@ function Dashboard() {
                     </div>
                     <div className="card finances-analytics">
                         Finances
-                        <FinancesChart data={data} />
+                        {/* <FinancesChart data={data} /> */}
                     </div>
                     <div className="card expenses-analytics">
                         Expenses

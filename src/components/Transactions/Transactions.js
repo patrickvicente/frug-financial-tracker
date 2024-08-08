@@ -13,7 +13,7 @@ function Transactions({transactions}) {
     }
 
     return (
-        <div className="transactions-list   ">
+        <div className="transactions-list">
             {transactions.map((transaction) => {
                 const { id, description, amount, category, date, type } = transaction;
 

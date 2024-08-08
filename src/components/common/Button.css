@@ -16,9 +16,3 @@
     font-weight: bold;
 }
 
-.button-txn:hover {
-    background-color: transparent;
-    border: 1px solid #15AD70;
-    color: #15AD70;
-    font-weight: bold;
-}
