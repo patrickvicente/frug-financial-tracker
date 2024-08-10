@@ -102,7 +102,9 @@ function Dashboard() {
                         Transactions
                         <Transactions transactions={transactions} budgets={budgets} />
                     </div>
-                    <Budgets budgets={budgets} handleAdd={handleAdd} />
+                    <div className="card budgets-container">
+                        <Budgets budgets={budgets} handleAdd={handleAdd} />
+                    </div>
                     <div className="card accounts">Accounts</div>
             </div>
 

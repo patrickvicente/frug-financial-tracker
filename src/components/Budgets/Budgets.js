@@ -8,8 +8,8 @@ function Budgets({budgets, handleAdd}) {
         return <p>No budget set.</p>
     }
     return (
-        <div className="card budgets-container" >
-            <div className="budgets-header">
+        <div className="budgets" >
+            <div className="card-header">
                 Budget
                 <Button label="Add" className="button-add" onClick={() => handleAdd("budget")} />
             </div>
