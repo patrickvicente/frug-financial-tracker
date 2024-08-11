@@ -11,7 +11,6 @@ import { selectAllBudgets, selectBudgetCategories } from "../../redux/selectors/
 import { formatCurrency } from "../../utils/utils";
 import Budgets from "../Budgets/Budgets";
 import BudgetForm from "../BudgetForm/BudgetForm";
-import FinancesChart from "../Analytics/FinancesChart";
 import ExpenseChart from "../Analytics/ExpenseChart";
 
 function Dashboard() {
@@ -111,7 +110,7 @@ function Dashboard() {
             <Modal isOpen={isModalOpen} onClose={closeModal} >
                 {
                     formType === "transaction" 
-                    ? <TransactionForm closeModal={closeModal} type={transactionType} categories={budgetCategories} />
+                    ? <TransactionForm closeModal={closeModal} type={transactionType} />
                     : <BudgetForm closeModal={closeModal} />
                 }
             </Modal>

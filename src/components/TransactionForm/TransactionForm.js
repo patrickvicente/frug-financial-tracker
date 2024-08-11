@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import "./TransactionForm.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTransaction } from "../../redux/slices/transactionsSlice";
 import { addBudgetTransaction } from "../../redux/slices/budgetsSlice";
 import Button from "../common/Button";
+import { selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
 
-function TransactionForm({closeModal, type, categories}) {
+function TransactionForm({closeModal, type}) {
     const [ formData, setFormData ] = useState({
         type: type || "income",
         description: "",
-        date: "",
+        date: new Date().toISOString().split("T")[0],
         amount: "",
         category: "",
         newCategory: "",
     });
+    const categories = useSelector(selectBudgetCategories);
+
+    
 
     const dispatch = useDispatch();
 
@@ -58,7 +62,7 @@ function TransactionForm({closeModal, type, categories}) {
 
         if (newTransaction.type === "expense") {
             dispatch(addBudgetTransaction(newTransaction));
-        }
+        };
         console.log("Dispatched addTransaction:", newTransaction)
         closeModal();
     };

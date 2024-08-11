@@ -22,11 +22,11 @@ export const selectAllTransactions = (state) => {
     return allIds.map(id => byId[id]);
 };
 
-export const selectTransactionsByMonth = (state, month) => {
-    if (state.budgets.byMonth[month]) {
-        return Object.values(state.budgets.byMonth[month].categories).flatMap(category => category.transactions);
-    }
-    return null;
+export const selectTransactionsByMonth = (state, month, year) => {
+    return Object.values(selectAllTransactions(state)).filter(transaction => {
+        const transactionDate = new Date(transaction.date);
+        return transactionDate.getMonth() === month && transactionDate.getFullYear() === year;
+    });
 };
 
 // Select a transaction by id

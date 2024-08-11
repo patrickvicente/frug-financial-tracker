@@ -25,10 +25,31 @@ function ExpenseChart({expenses}) {
         ]
     };
 
+    const options = {
+        plugins: {
+            legend: {
+                display: true, // Show the legend
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += context.raw;
+                        return label;
+                    }
+                }
+            }
+        }
+    };
+
     return (
         <div className="chart-container">
             {categories && categories.length > 0 ? (
-                <Doughnut className="chart-expense" data={data}/>
+                <Doughnut className="chart-expense" data={data} options={options}/>
             ) : (
                 <p>No data found</p>
             )}

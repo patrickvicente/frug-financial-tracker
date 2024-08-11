@@ -48,12 +48,16 @@ const budgetsSlice = createSlice({
             // TO DO Implement Change name of category
         },
         addBudgetTransaction: (state, action) => {
-            const { category, amount, date } = action.payload;
+            const { category, amount, date, type } = action.payload;
             const month = new Date(date).toLocaleString("default", {month: "long", year: "numeric"});
 
             if (!state.byMonth[month]) {
                 // Creates an object if new month
                 state.byMonth[month] = { categories: {}}
+            };
+
+            if (type === "income") {
+                category = "income";
             };
 
             if (!state.byMonth[month].categories[category]) {
