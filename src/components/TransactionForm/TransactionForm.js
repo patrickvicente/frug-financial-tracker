@@ -59,10 +59,8 @@ function TransactionForm({closeModal, type}) {
         };
 
         dispatch(addTransaction(newTransaction))
-
-        if (newTransaction.type === "expense") {
-            dispatch(addBudgetTransaction(newTransaction));
-        };
+        dispatch(addBudgetTransaction(newTransaction));
+        
         console.log("Dispatched addTransaction:", newTransaction)
         closeModal();
     };

@@ -33,7 +33,7 @@ function TransactionsView() {
         if (!filterDate) {
             // Return all transactions if no filter date is set
             return type === "income" ? incomeTransactions : expenseTransactions;
-        };
+        }
         
         return filteredTransactionsByMonth.filter(transaction => transaction.type === type);
     };

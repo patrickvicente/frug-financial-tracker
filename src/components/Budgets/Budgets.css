@@ -8,3 +8,18 @@
     padding: 0 auto;
     margin-top: 10px;
 }
+
+.select-month {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    color: #797979;
+}
+
+.icon-side {
+    font-size: 14px;
+}
+
+.icon-side {
+    cursor: pointer;
+}
