@@ -20,3 +20,7 @@
  export const selectBudgetCategoriesByMonth = (state, monthYear) => {
     return Object.keys(state.budgets.byMonth?.[monthYear]?.categories ?? {});
  };
+
+ export const selectBudgetsByMonth = (state) => {
+   return state.budgets.byMonth;
+ };

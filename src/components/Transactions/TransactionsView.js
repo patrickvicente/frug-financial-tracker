@@ -4,7 +4,7 @@ import Transactions from "./Transactions";
 import { useSelector } from "react-redux";
 import { selectAllBudgets } from "../../redux/selectors/budgetsSelector";
 import Budgets from "../Budgets/Budgets";
-import { selectTransactionsByMonth, selectTransactionsByType } from "../../redux/selectors/transactionsSelectors";
+import { selectAllTransactions, selectTransactionsByMonth } from "../../redux/selectors/transactionsSelectors";
 import Button from "../common/Button";
 import Filter from "../common/Filter";
 import Modal from "../common/Modal";
@@ -17,8 +17,7 @@ function TransactionsView() {
     const [ formType, setFormType ] = useState("transaction");
     const [ filterDate, setFilterDate ] = useState(null);
     const filteredTransactionsByMonth = useSelector(state => filterDate ? selectTransactionsByMonth(state, filterDate.month, filterDate.year) : []);
-    const incomeTransactions = useSelector(state => selectTransactionsByType(state, "income"));
-    const expenseTransactions = useSelector(state => selectTransactionsByType(state, "expense"));
+    const transactions = useSelector(selectAllTransactions);
     const budgets = useSelector(selectAllBudgets);
 
     const handleAdd = (form, txnType) => {
@@ -32,7 +31,7 @@ function TransactionsView() {
     const getFilteredTransactions = (type) => {
         if (!filterDate) {
             // Return all transactions if no filter date is set
-            return type === "income" ? incomeTransactions : expenseTransactions;
+            return transactions.filter(transaction => transaction.type == type);
         }
         
         return filteredTransactionsByMonth.filter(transaction => transaction.type === type);
@@ -45,7 +44,7 @@ function TransactionsView() {
     return (
         <div className="grid TransactionsView">
             <div className="card filter-container">
-                <Filter className="card filter" transactions={incomeTransactions} onFilterChange={setFilterDate} />  
+                <Filter className="card filter" transactions={transactions} onFilterChange={setFilterDate} />  
             </div>
             <div className="card income-transactions">
                 <div className="card-header">

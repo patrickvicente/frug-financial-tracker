@@ -1,38 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import Budget from "./Budget";
 import "./Budgets.css";
 import Button from "../common/Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useSelector } from "react-redux";
+import { selectBudgetsByMonth } from "../../redux/selectors/budgetsSelector";
+import { formatMonthYear, getNextMonth, getPreviousMonth, getThisMonth } from "../../utils/utils";
 
-function Budgets({budgets, handleAdd}) {
-    if (!budgets || budgets.length == 0) {
-        return <p>No budget set.</p>
-    }
+function Budgets({handleAdd}) {
+    const budgetsByMonth = useSelector(selectBudgetsByMonth);
+    const [ monthYear, setMonthYear ] = useState(getThisMonth())
+    const budgets = budgetsByMonth[monthYear];
+    
     return (
         <div className="budgets" >
             <div className="card-header">
                 Budget
                 <div className="select-month">
-                    <Icon className="icon icon-side" icon="iconamoon:arrow-left-2-thin" />
-                    August 2024
-                    <Icon className="icon icon-side" icon="iconamoon:arrow-right-2-thin" />
+                    <Icon className="icon icon-side" icon="iconamoon:arrow-left-2-thin" onClick={() => setMonthYear(getPreviousMonth(monthYear))} />
+                    {formatMonthYear(monthYear)}
+                    <Icon className="icon icon-side" icon="iconamoon:arrow-right-2-thin" onClick={() => setMonthYear(getNextMonth(monthYear))}/>
                 </div>
                 <Button label="Add" className="button-add" onClick={() => handleAdd("budget")} />
             </div>
-            <div className="budgets-list" >
-                {budgets.map((byCategory) => {
-                    console.log("byCategory", byCategory)
-                    const { category, budget, total } = byCategory;
+            
+            {/* Handles cases where budget is not set */}
+            {!budgets ? <p>No budget set.</p>
+            : <div className="budgets-list" >
+                    {Object.entries(budgets.categories).map(([key, value]) => {
+                        console.log("Budgest Comp category", key, value)
+                        const { budget, totalSpent } = value;
+                        const category = key;
 
-                    return (
-                        <Budget 
-                            category={category} 
-                            budget={(budget)}
-                            total={total}
-                        />
-                    )
-                })}
-            </div>
+                        return (
+                            <Budget 
+                                category={category} 
+                                budget={(budget)}
+                                total={totalSpent}
+                            />
+                        )
+                    })}
+                </div>
+            }
         </div>
     )
 };
