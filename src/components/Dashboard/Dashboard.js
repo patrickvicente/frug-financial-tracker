@@ -6,7 +6,7 @@ import Transactions from "../Transactions/Transactions";
 import Modal from "../common/Modal";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import {useSelector } from "react-redux";
-import { selectAllTransactions, selectTransactionsByType } from "../../redux/selectors/transactionsSelectors";
+import { selectAllTotals, selectAllTransactions, selectTotalsByMonth, selectTransactionsByType } from "../../redux/selectors/transactionsSelectors";
 import { selectAllBudgets, selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
 import { formatCurrency } from "../../utils/utils";
 import Budgets from "../Budgets/Budgets";
@@ -20,6 +20,8 @@ function Dashboard() {
     const transactions = useSelector(selectAllTransactions);
     const budgets = useSelector(selectAllBudgets);
     const budgetCategories = useSelector(selectBudgetCategories);
+    const totals = useSelector(selectAllTotals);
+    const totalsByMonth = useSelector(selectTotalsByMonth);
     const expenseTransactions = useSelector(state => selectTransactionsByType(state, "expense"))
     console.log("Expenses", expenseTransactions);
     console.log("Budget Categories", budgetCategories);
@@ -30,28 +32,8 @@ function Dashboard() {
         setModalOpen(true);
     };
     const closeModal = () => setModalOpen(false);
-
-    const calculateTotals = (transactions) => {
-        let totalIncome = 0;
-        let totalExpenses = 0;
-        let balance = 0;
-        const data = [];
-
-        transactions.forEach(transaction =>  {
-            if (transaction.type === "income" ) {
-                totalIncome += transaction.amount;
-            } else if (transaction.type === "expense") {
-                totalExpenses += transaction.amount
-            }
-            balance = totalIncome - totalExpenses;
-            data.push({date: transaction.date, balance})
-        });
-
-        return { totalIncome, totalExpenses, balance, data };
-    };
     
-    const { totalIncome, totalExpenses, balance, data } = calculateTotals(transactions);
-    console.log("Totals: ", totalIncome, totalExpenses, balance, data );
+    console.log("Totals: ", totals.income, totals.expenses, totals.balance);
     return (
         <div className="Dashboard">
             <div className="grid">
@@ -60,7 +42,7 @@ function Dashboard() {
                             <Icon className="icon dashboard-icon" icon="lucide:wallet" />
                         </div>
                         <div className="card-info">
-                            Balance<br/>{formatCurrency(balance)}
+                            Balance<br/>{formatCurrency(totals.balance)}
                         </div>
                     </div>
                     <div className="card income">
@@ -68,7 +50,7 @@ function Dashboard() {
                             <Icon className="icon dashboard-icon" icon="mdi:hand-coin-outline" />
                         </div>
                         <div className="card-info">
-                            Income<br/>{formatCurrency(totalIncome)}
+                            Income<br/>{formatCurrency(totals.income)}
                             <Button label="Add" className="button-add" onClick={() => handleAdd("transaction","income")} />
                         </div>
                     </div>
@@ -77,7 +59,7 @@ function Dashboard() {
                             <Icon className="icon dashboard-icon" icon="uil:money-insert" />
                         </div>
                         <div className="card-info">
-                            Expenses<br/>{formatCurrency(totalExpenses)}
+                            Expenses<br/>{formatCurrency(totals.expenses)}
                             <Button label="Add" className="button-add" onClick={() => handleAdd("transaction","expense")} />
                         </div>
                     </div>
@@ -102,7 +84,7 @@ function Dashboard() {
                         <Transactions transactions={transactions} budgets={budgets} />
                     </div>
                     <div className="card budgets-container">
-                        <Budgets budgets={budgets} handleAdd={handleAdd} />
+                        <Budgets handleAdd={handleAdd} />
                     </div>
                     <div className="card accounts">Accounts</div>
             </div>

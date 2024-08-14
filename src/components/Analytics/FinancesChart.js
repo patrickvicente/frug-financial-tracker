@@ -1,36 +1,31 @@
-import React, {useState, useEffect}from "react";
-import { Line } from "react-chartjs-2";
+import React from "react";
+import { 
+    Chart as ChartJS, 
+    CategoryScale, 
+    LinearScale, 
+    PointElement, 
+    LineElement,
+    Title,
+    Tooltip,
+    Legend, 
+} from "chart.js";
+ChartJS.register(
+    CategoryScale, 
+    LinearScale, 
+    PointElement, 
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+);
+
 
 const FinancesChart = ({data}) => {
-    const [chartData, setChartData] = useState({
-        labels: [],
-        datasets: [],
-      });
-    
-      useEffect(() => {
-        const formattedData = {
-          labels: data.map(item => item.date),
-          datasets: [
-            {
-              label: 'Balance',
-              data: data.map(item => item.balance),
-              fill: false,
-              backgroundColor: 'rgba(75,192,192,0.4)',
-              borderColor: 'rgba(75,192,192,1)',
-            },
-          ],
-        };
-        setChartData(formattedData);
-      }, [data]);
-
-      console.log("chart data", chartData);
-    
-      
-      return (
-        <div>
-          <Line data={chartData} />
-        </div>
-      );
+    const labels = Object.keys(data);
+    const incomeData
+    return (
+      <LineGraph />
+    )
 };
 
 export default FinancesChart;

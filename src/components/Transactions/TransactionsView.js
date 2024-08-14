@@ -37,10 +37,6 @@ function TransactionsView() {
         return filteredTransactionsByMonth.filter(transaction => transaction.type === type);
     };
 
-    const getFilteredBudgets = () => {
-        
-    };
-
     return (
         <div className="grid TransactionsView">
             <div className="card filter-container">
