@@ -12,6 +12,7 @@ import { formatCurrency } from "../../utils/utils";
 import Budgets from "../Budgets/Budgets";
 import BudgetForm from "../BudgetForm/BudgetForm";
 import ExpenseChart from "../Analytics/ExpenseChart";
+import FinancesChart from "../Analytics/FinancesChart";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
@@ -33,7 +34,6 @@ function Dashboard() {
     };
     const closeModal = () => setModalOpen(false);
     
-    console.log("Totals: ", totals.income, totals.expenses, totals.balance);
     return (
         <div className="Dashboard">
             <div className="grid">
@@ -73,7 +73,7 @@ function Dashboard() {
                     </div>
                     <div className="card finances-analytics">
                         Finances
-                        {/* <FinancesChart data={data} /> */}
+                        <FinancesChart totals={totalsByMonth} />
                     </div>
                     <div className="card expenses-analytics">
                         Expenses

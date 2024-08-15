@@ -29,3 +29,11 @@ export function formatMonthYear(dateString) {
     const [year, month] = dateString.split("-");
     return `${months[parseInt(month, 10) - 1]} ${year}`;
 }
+
+// Utility function to convert "September 2024" to "2024-09 format"
+export function convertToYearMonth (dateString) {
+    const date = new Date(dateString + "01") // add a day to make it a full day
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2); // Ensures two digits
+    return `${year}-${month}`;
+};

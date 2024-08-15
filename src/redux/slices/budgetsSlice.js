@@ -46,7 +46,7 @@ const budgetsSlice = createSlice({
                 state.byCategory[category] = {
                     category,
                     type,
-                    budget,
+                    budget: 0,
                     totalSpent: 0,
                     transactionIds: []
                 };
@@ -84,16 +84,20 @@ const budgetsSlice = createSlice({
         },
         addBudgetTransaction: (state, action) => {
             const { category, amount, date, type } = action.payload;
-            const month = new Date(date).toLocaleString("default", {month: "long", year: "numeric"});
+            const dateObj = new Date(date);
+            const year = dateObj.getFullYear();
+            const month = ("0" + (dateObj.getMonth() + 1)).slice(-2); // Ensures two digits
+            const yearMonth = `${year}-${month}`;
 
-            if (!state.byMonth[month]) {
+
+            if (!state.byMonth[yearMonth]) {
                 // Creates an object if new month
-                state.byMonth[month] = { categories: {}}
+                state.byMonth[yearMonth] = { categories: {}}
             }
 
-            if (!state.byMonth[month].categories[category]) {
+            if (!state.byMonth[yearMonth].categories[category]) {
                 // Creates a category object if new object
-                state.byMonth[month].categories[category] = {type,  budget: 0, totalSpent: 0, transactionIds: [] };
+                state.byMonth[yearMonth].categories[category] = {type,  budget: 0, totalSpent: 0, transactionIds: [] };
             }
             // Ensure the category is initialized in byCategory
             if (!state.byCategory[category]) {
@@ -104,8 +108,8 @@ const budgetsSlice = createSlice({
             state.byCategory[category].transactionIds.push(action.payload.id);
             state.byCategory[category].totalSpent += amount;
 
-            state.byMonth[month].categories[category].transactionIds.push(action.payload.id);
-            state.byMonth[month].categories[category].totalSpent += amount;
+            state.byMonth[yearMonth].categories[category].transactionIds.push(action.payload.id);
+            state.byMonth[yearMonth].categories[category].totalSpent += amount;
         },
     }
 });
