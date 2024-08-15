@@ -34,13 +34,13 @@ const FinancesChart = ({totals}) => {
         {
           label: "Income",
           data: incomeData,
-          borderColor: "green",
+          borderColor: "#15AD70",
           fill: false,
         },
         {
           label: "Expenses",
           data: expensesData,
-          borderColor: "red",
+          borderColor: "#E15E42",
           fill: false,
         },
         {

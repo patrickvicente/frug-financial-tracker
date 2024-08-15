@@ -11,7 +11,7 @@ function Transaction({type, description, date, category, id, amount}) {
     
     return (
         <div id={id}
-            className={`Transaction ${type === "income" ? "income-txn" : "expense-txn"}`}
+            className={`Transaction ${type.toLowerCase() === "income" ? "income-txn" : "expense-txn"}`}
         >
             <div className="transaction-content">
                 {typeIcon}

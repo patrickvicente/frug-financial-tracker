@@ -37,3 +37,10 @@ export function convertToYearMonth (dateString) {
     const month = ("0" + (date.getMonth() + 1)).slice(-2); // Ensures two digits
     return `${year}-${month}`;
 };
+
+export const excelDateToJSDate = (serial) => {
+    const utc_days = Math.floor(serial - 25569);
+    const date_info = utc_days * 86400; 
+    const date = new Date(date_info * 1000);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};

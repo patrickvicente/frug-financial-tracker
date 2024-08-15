@@ -6,7 +6,7 @@ const initialState = {
         type: "income",
         description: "ECA - Salary",
         date: "July 7, 2024",
-        amount: 1521.25,
+        amount: 0,
         category: "Salary",
       }
     },

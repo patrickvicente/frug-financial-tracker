@@ -4,11 +4,6 @@
     margin-bottom: 10px;
 }
 
-.budgets-list {
-    padding: 0 auto;
-    margin-top: 10px;
-}
-
 .select-month {
     display: flex;
     align-items: center;
@@ -22,4 +17,17 @@
 
 .icon-side {
     cursor: pointer;
+}
+
+.budgets-list {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    padding: 0 auto;
+    margin-top: 10px;
+}
+
+span {
+    font-size: 10px;
 }

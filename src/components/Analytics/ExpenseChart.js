@@ -5,7 +5,7 @@ import {Chart, ArcElement} from 'chart.js'
 Chart.register(ArcElement)
 
 function ExpenseChart({expenses}) {
-    const expenseData = expenses && expenses.length > 0 ? expenses.map(expense => expense.amount) : [];
+    const expenseData = expenses && expenses.length > 0 ? expenses.map(expense => expense.totalSpent) : [];
     const categories = expenses && expenses.length > 0 ? expenses.map(expense => expense.category) : [];
     console.log("chart categories",categories)
     const data={

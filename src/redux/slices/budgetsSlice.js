@@ -5,29 +5,29 @@ const initialState = {
         clothing: {
             category: "clothing",
             type: "expense",
-            budget: 1000,
-            totalSpent: 1500,
+            budget: 0,
+            totalSpent: 0,
             transactionIds: [],
         }
     },
     byMonth: {
         "2024-08": {
-            totalBudget: 5000, // Total budget for the month
-            totalSpent: 1500, // Total spent across all categories for the month
-            remaining: 3500, // Remaining budget for the month
+            totalBudget: 0, // Total budget for the month
+            totalSpent: 0, // Total spent across all categories for the month
+            remaining: 0, // Remaining budget for the month
             categories: {
                 clothing: {
                     type: "expense", // Could be 'expense' or 'income'
-                    budget: 1000, // Budget allocated for this category
-                    totalSpent: 500, // Total spent in this category
-                    remaining: 500, // Remaining budget for this category
+                    budget: 0, // Budget allocated for this category
+                    totalSpent: 0, // Total spent in this category
+                    remaining: 0, // Remaining budget for this category
                     transactionIds: [],
                 },
-                groceries: {
+                grocery: {
                     type: "expense",
-                    budget: 1500,
-                    totalSpent: 1000,
-                    remaining: 500,
+                    budget: 0,
+                    totalSpent: 0,
+                    remaining: 0,
                     transactionIds: [],
                 },
             },
@@ -41,15 +41,20 @@ const budgetsSlice = createSlice({
     reducers: {
         addBudget: (state, action) => {
             const { monthYear, category, budget, type } = action.payload;
+            const formatCategory = category.toLowerCase(); // formats the category
 
-            if (!state.byCategory[category] && budget >= 0) {
-                state.byCategory[category] = {
-                    category,
+            // Checks if category exists if not, creates a new object
+            if (!state.byCategory[formatCategory] && budget >= 0) {
+                state.byCategory[formatCategory] = {
+                    formatCategory,
                     type,
-                    budget: 0,
+                    budget,
                     totalSpent: 0,
                     transactionIds: []
                 };
+            } else {
+                // updated the total budget of the category if it exists
+                state.byCategory[formatCategory].budget += budget;
             }
 
             // Ensure the monthYear exists in the byMonth
@@ -62,8 +67,8 @@ const budgetsSlice = createSlice({
                 };
             }
 
-            if (!state.byMonth[monthYear].categories[category]) {
-                state.byMonth[monthYear].categories[category] = { type, budget, totalSpent: 0, transactionIds: []};
+            if (!state.byMonth[monthYear].categories[formatCategory]) {
+                state.byMonth[monthYear].categories[formatCategory] = { type, budget, totalSpent: 0, transactionIds: []};
                 
                 if (type === "income") {
                     state.byMonth[monthYear].remaining += budget; // Adds income to remaining amount
@@ -88,6 +93,7 @@ const budgetsSlice = createSlice({
             const year = dateObj.getFullYear();
             const month = ("0" + (dateObj.getMonth() + 1)).slice(-2); // Ensures two digits
             const yearMonth = `${year}-${month}`;
+            const formattedCategory = category.toLowerCase();
 
 
             if (!state.byMonth[yearMonth]) {
@@ -95,21 +101,21 @@ const budgetsSlice = createSlice({
                 state.byMonth[yearMonth] = { categories: {}}
             }
 
-            if (!state.byMonth[yearMonth].categories[category]) {
+            if (!state.byMonth[yearMonth].categories[formattedCategory]) {
                 // Creates a category object if new object
-                state.byMonth[yearMonth].categories[category] = {type,  budget: 0, totalSpent: 0, transactionIds: [] };
+                state.byMonth[yearMonth].categories[formattedCategory] = {type,  budget: 0, totalSpent: 0, transactionIds: [] };
             }
             // Ensure the category is initialized in byCategory
-            if (!state.byCategory[category]) {
-                state.byCategory[category] = { type, category, budget: 0, totalSpent: 0, transactionIds: [] };
+            if (!state.byCategory[formattedCategory]) {
+                state.byCategory[formattedCategory] = { type, formattedCategory, budget: 0, totalSpent: 0, transactionIds: [] };
             }
 
             // Update transactions and totals
-            state.byCategory[category].transactionIds.push(action.payload.id);
-            state.byCategory[category].totalSpent += amount;
+            state.byCategory[formattedCategory].transactionIds.push(action.payload.id);
+            state.byCategory[formattedCategory].totalSpent += amount;
 
-            state.byMonth[yearMonth].categories[category].transactionIds.push(action.payload.id);
-            state.byMonth[yearMonth].categories[category].totalSpent += amount;
+            state.byMonth[yearMonth].categories[formattedCategory].transactionIds.push(action.payload.id);
+            state.byMonth[yearMonth].categories[formattedCategory].totalSpent += amount;
         },
     }
 });

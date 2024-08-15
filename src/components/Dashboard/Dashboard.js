@@ -7,7 +7,7 @@ import Modal from "../common/Modal";
 import TransactionForm from "../TransactionForm/TransactionForm";
 import {useSelector } from "react-redux";
 import { selectAllTotals, selectAllTransactions, selectTotalsByMonth, selectTransactionsByType } from "../../redux/selectors/transactionsSelectors";
-import { selectAllBudgets, selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
+import { selectAllBudgetCategories, selectAllBudgets } from "../../redux/selectors/budgetsSelector";
 import { formatCurrency } from "../../utils/utils";
 import Budgets from "../Budgets/Budgets";
 import BudgetForm from "../BudgetForm/BudgetForm";
@@ -20,7 +20,7 @@ function Dashboard() {
     const [ transactionType, setTransactionType ] = useState("");
     const transactions = useSelector(selectAllTransactions);
     const budgets = useSelector(selectAllBudgets);
-    const budgetCategories = useSelector(selectBudgetCategories);
+    const budgetCategories = useSelector(selectAllBudgetCategories);
     const totals = useSelector(selectAllTotals);
     const totalsByMonth = useSelector(selectTotalsByMonth);
     const expenseTransactions = useSelector(state => selectTransactionsByType(state, "expense"))
@@ -77,7 +77,7 @@ function Dashboard() {
                     </div>
                     <div className="card expenses-analytics">
                         Expenses
-                        <ExpenseChart categories={budgetCategories} expenses={expenseTransactions} />
+                        <ExpenseChart expenses={budgetCategories.filter(cat => cat.type === "expense")} />
                     </div>
                     <div className="card transactions">
                         Transactions

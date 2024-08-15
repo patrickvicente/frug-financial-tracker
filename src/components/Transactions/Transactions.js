@@ -12,9 +12,12 @@ function Transactions({transactions}) {
         return <p>No transactions to display.</p>;
     }
 
+    // Sort transactions by date in descending order
+    const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
     return (
         <div className="transactions-list">
-            {transactions.map((transaction) => {
+            {sortedTransactions.map((transaction) => {
                 const { id, description, amount, category, date, type } = transaction;
 
                 return ( 

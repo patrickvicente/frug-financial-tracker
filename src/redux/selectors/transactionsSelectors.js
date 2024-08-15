@@ -50,13 +50,13 @@ export const selectAllTotals = (state) => {
     // Maps through all the IDs and updates the totals object
     state.transactions.allIds.map((id) => {
         const transaction = state.transactions.byId[id];
-        if (transaction.type === "income") {
+        if (transaction.type.toLowerCase() === "income") {
             totals.income += transaction.amount;
         } else {
             totals.expenses += transaction.amount;
         }
     });
-    totals.balance = totals.income;
+    totals.balance = totals.income - totals.expenses;
     return totals;
 };
 
@@ -85,4 +85,3 @@ export const selectTotalsByMonth = (state) => {
 
     return totals;
 };
-
