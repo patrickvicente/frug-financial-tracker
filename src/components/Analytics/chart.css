@@ -1,12 +1,8 @@
 .chart-container {
     width: 100%;
-    max-width: 270px; 
-    height: 270px; 
-    margin: 0 auto; /* Center the chart in its container */
-    position: relative;
+    height: 100%; 
 }
 
 .chart-expense {
-    width: 100% !important;
-    height: 100% !important;
+    margin: 0 auto; /* Center the chart in its container */
 }

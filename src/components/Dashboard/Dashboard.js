@@ -72,7 +72,6 @@ function Dashboard() {
                         </div>
                     </div>
                     <div className="card finances-analytics">
-                        Finances
                         <FinancesChart totals={totalsByMonth} />
                     </div>
                     <div className="card expenses-analytics">

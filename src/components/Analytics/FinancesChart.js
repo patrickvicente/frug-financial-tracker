@@ -64,6 +64,12 @@ const FinancesChart = ({totals}) => {
         title: {
           display: true,
           text: "Income, Expenses, and Balance Over Time",
+          color: "#F1F0F5",
+          font: {
+            size: 16,
+            family: "Inter",
+            weight: "normal"
+          },
         },
       },
       scales: {

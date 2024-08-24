@@ -1,0 +1,54 @@
+
+.excel-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.input-container {
+    border-radius: 25px;
+    margin: 10px 0;
+    padding: 10px 15px;
+    width: 200px;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+}
+
+.excel-upload-container p {
+    font-size: 10px;
+    color: yellow;
+}
+
+input {
+    border: none;
+    outline: none;
+    color: #ddd;
+    text-align: center;
+    background: none;
+    width: 80%;
+    padding: 8px auto;
+    flex-shrink: 0;
+    background-color: transparent;
+}   
+
+
+.button-download, .button-upload {
+    width: 300px;
+    height: 40px;
+    margin-top: 20px;
+    padding: 8px 42px;
+    border-radius: 15px;
+    background: #15AD70;
+    transition: background-color .3s;
+}
+
+.button-download:hover,
+.button-upload:hover {
+    background-color: transparent;
+    border: 1px solid #15AD70;
+    color: #15AD70;
+    font-weight: bold;
+}

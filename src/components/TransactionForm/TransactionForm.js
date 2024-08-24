@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TransactionForm.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addTransaction } from "../../redux/slices/transactionsSlice";
-import { addBudget, addBudgetTransaction } from "../../redux/slices/budgetsSlice";
+import { addBudgetTransaction } from "../../redux/slices/budgetsSlice";
 import Button from "../common/Button";
 import { selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
 

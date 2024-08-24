@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Doughnut } from "react-chartjs-2";
 import "./chart.css";
 import { Chart, ArcElement } from 'chart.js';
 Chart.register(ArcElement);
 
 function ExpenseChart({ expenses }) {
-   // Sort expenses from highest to lowest by totalSpent
+   // Sort expenses from lowest to highest by totalSpent
    const sortedExpenses = expenses && expenses.length > 0 
    ? [...expenses].sort((a, b) => a.totalSpent - b.totalSpent) 
    : [];
@@ -13,7 +13,7 @@ function ExpenseChart({ expenses }) {
     const expenseData = sortedExpenses.map(expense => Math.round(expense.totalSpent));
     const categories = sortedExpenses.map(expense => expense.category);
     console.log("chart categories", categories);
-    const totalSpent = expenseData.reduce((sum, expense) => sum + expense, 0);
+    const totalSpent = useMemo(() => expenseData.reduce((sum, expense) => sum + expense, 0), [expenseData]);
     
     const data = {
         labels: categories,
@@ -58,7 +58,7 @@ function ExpenseChart({ expenses }) {
                 }
             },
         },
-        cutout: "75%" // Hollow center for text
+        cutout: "70%" // Hollow center for text
     };
 
     const centerTextPlugin = {
@@ -67,8 +67,8 @@ function ExpenseChart({ expenses }) {
             const { ctx, width, height } = chart;
             ctx.save();
 
-            // Draw "Total Expenses" with 18px font size
-            ctx.font = '16px inter';
+            // Draw "Total Expenses" with px font size
+            ctx.font = '14px inter';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillStyle = '#F1F0F5'; // Custom color for the text
@@ -93,7 +93,7 @@ function ExpenseChart({ expenses }) {
                     plugins={[centerTextPlugin]}
                 />
             ) : (
-                <p>No data found</p>
+                <p>No Data Found. Add Expense Transaction</p>
             )}
         </div>
     );

@@ -3,9 +3,9 @@
 }
 
 .button-add {
-    background-color: #067045;
     width: auto;
     border-radius: 5px;
+    background-color: #067045;
     transition: background-color .25s;
 }
 

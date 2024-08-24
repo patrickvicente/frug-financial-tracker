@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NavBar.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { NavLink } from "react-router-dom";
+import Modal from "../common/Modal";
+import ExcelUpload from "../Excel/ExcelUpload";
 
 function NavBar() {
+    const [ isModalOpen, setModalOpen ] = useState(false);
+    const handleClick = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+
+
     return (
         <nav className="NavBar">
             <h1 className="logo-text">früg</h1>
@@ -19,19 +26,15 @@ function NavBar() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/analytics">
-                        <Icon className="icon nav-icon" icon="mdi:analytics" />
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/download">
-                        <Icon className="icon nav-icon" icon="streamline:download-file-solid" />
-                    </NavLink>
+                    <Icon className="icon nav-icon" icon="streamline:download-file-solid" onClick={handleClick} />
                 </li>
             </ul>
             {/* <div className="Nav-bottom ">
                 <Icon className="icon nav-icon logout" icon="majesticons:logout" />
             </div> */}
+            <Modal isOpen={isModalOpen} onClose={closeModal} >
+                <ExcelUpload closeModal={closeModal} />
+            </Modal>
         </nav>
     )
 };
