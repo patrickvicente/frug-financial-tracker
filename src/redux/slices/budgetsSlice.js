@@ -40,44 +40,70 @@ const budgetsSlice = createSlice({
     initialState,
     reducers: {
         addBudget: (state, action) => {
+            console.log("Add Budget Slice", action.payload);
             const { monthYear, category, budget, type } = action.payload;
             const formatCategory = category.toLowerCase(); // formats the category
 
-            // Checks if category exists if not, creates a new object
-            if (!state.byCategory[formatCategory] && budget >= 0) {
+            // initializes category if it doesn't exist yet
+            if (!state.byCategory[formatCategory]) {
                 state.byCategory[formatCategory] = {
                     formatCategory,
                     type,
                     budget,
                     totalSpent: 0,
                     transactionIds: []
-                };
+                }
             } else {
-                // updated the total budget of the category if it exists
+                // Update the budget for existing category
                 state.byCategory[formatCategory].budget += budget;
             }
-
-            // Ensure the monthYear exists in the byMonth
+            
+            // Initialize monthYear if it doesn't exist
             if (!state.byMonth[monthYear]) {
                 state.byMonth[monthYear] = {
                     totalBudget: 0,
                     totalSpent: 0,
-                    remaining: 0,
+                    remaining: 0, 
                     categories: {}
                 };
             }
-
+            // Initialize or update the category within the monthYear
             if (!state.byMonth[monthYear].categories[formatCategory]) {
-                state.byMonth[monthYear].categories[formatCategory] = { type, budget, totalSpent: 0, transactionIds: []};
-                
+                state.byMonth[monthYear].categories[formatCategory] = { 
+                    type,
+                    budget,
+                    remaining: budget,
+                    totalSpent: 0, 
+                    transactionIds: []
+                };
+
+                // Adjust totalBudget and remaining for the new category
                 if (type === "income") {
-                    state.byMonth[monthYear].remaining += budget; // Adds income to remaining amount
+                    state.byMonth[monthYear].remaining += budget;
                 } else {
-                    state.byMonth[monthYear].totalBudget += budget; // add the budget to totalBudget
-                    state.byMonth[monthYear].remaining -= budget; // updates the remaining amount
+                    state.byMonth[monthYear].totalBudget += budget;
+                    state.byMonth[monthYear].remaining -= budget;
+                }
+            } else {
+                // If category already exists in the monthYear, update the budget
+                const existingCategory = state.byMonth[monthYear].categories[formatCategory];
+                
+                // Update the category budget
+                existingCategory.budget += budget;
+
+                // Recalculate the remaining amount for this category
+                existingCategory.remaining = existingCategory.budget - existingCategory.totalSpent;
+
+                // Adjust totalBudget and remaining based on the updated budget
+                if (type === "income") {
+                    // Adjust remaining for income categories
+                    state.byMonth[monthYear].remaining += budget;
+                } else {
+                    // Adjust totalBudget and remaining for expense categories
+                    state.byMonth[monthYear].totalBudget += budget;
+                    state.byMonth[monthYear].remaining = state.byMonth[monthYear].totalBudget - state.byMonth[monthYear].totalSpent;
                 }
             }
-
         },
         editBudget: (state, action) => {
             const { category, budget } = action.payload;
@@ -98,12 +124,12 @@ const budgetsSlice = createSlice({
 
             if (!state.byMonth[yearMonth]) {
                 // Creates an object if new month
-                state.byMonth[yearMonth] = { categories: {}}
+                state.byMonth[yearMonth] = { totalBudget: 0, totalSpent: 0, remaining: 0, categories: {}}
             }
 
             if (!state.byMonth[yearMonth].categories[formattedCategory]) {
                 // Creates a category object if new object
-                state.byMonth[yearMonth].categories[formattedCategory] = {type,  budget: 0, totalSpent: 0, transactionIds: [] };
+                state.byMonth[yearMonth].categories[formattedCategory] = {type,  budget: 0, totalSpent: 0, remaining: 0, transactionIds: [] };
             }
             // Ensure the category is initialized in byCategory
             if (!state.byCategory[formattedCategory]) {
@@ -114,8 +140,19 @@ const budgetsSlice = createSlice({
             state.byCategory[formattedCategory].transactionIds.push(action.payload.id);
             state.byCategory[formattedCategory].totalSpent += amount;
 
-            state.byMonth[yearMonth].categories[formattedCategory].transactionIds.push(action.payload.id);
+            // Update the total spent and transaction IDs in the monthly category
             state.byMonth[yearMonth].categories[formattedCategory].totalSpent += amount;
+            state.byMonth[yearMonth].categories[formattedCategory].transactionIds.push(action.payload.id);
+
+            // Update remaining budget for the category in that month
+            const monthlyBudget = state.byMonth[yearMonth].categories[formattedCategory].budget;
+            state.byMonth[yearMonth].categories[formattedCategory].remaining = monthlyBudget - state.byMonth[yearMonth].categories[formattedCategory].totalSpent;
+
+            // Update the overall total spent for the month
+            state.byMonth[yearMonth].totalSpent += amount;
+
+            // Recalculate the overall remaining budget for the month
+            state.byMonth[yearMonth].remaining = state.byMonth[yearMonth].totalBudget - state.byMonth[yearMonth].totalSpent;
         },
     }
 });

@@ -9,7 +9,9 @@ function Analytics() {
             <div className="card finance-overview">
                 <IncomeExpenseBarChart />
             </div>
-            <div className="card expense-overview"></div>
+            <div className="card expense-overview">
+                
+            </div>
             <div className="card categories-overview"></div>
             <div className="card budget-overview"></div>
         </div>

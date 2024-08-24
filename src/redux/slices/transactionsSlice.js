@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     byId: {
-      1: {
+      1000: {
         type: "income",
         description: "ECA - Salary",
-        date: "July 7, 2024",
+        date: "July 1, 2024",
         amount: 0,
         category: "Salary",
       }
     },
-    allIds: [1]
+    allIds: [1000]
 };
 
 const transactionsSlice = createSlice({

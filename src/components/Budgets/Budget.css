@@ -24,9 +24,16 @@
     border: 1px;
 }
 
-.filled {
+.filled-green {
     height: 5px;
     background-color: #15AD70;
+    border-radius: 5px;
+    border: none;
+}
+
+.filled-red {
+    height: 5px;
+    background-color: #E15E42;
     border-radius: 5px;
     border: none;
 }

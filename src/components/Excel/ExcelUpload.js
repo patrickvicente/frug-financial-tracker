@@ -39,7 +39,6 @@ const ExcelUpload = () => {
                 };
                 dispatch(addTransaction(transaction));
                 dispatch(addBudgetTransaction(transaction))
-                console.log("excel", transaction)
             });
 
             // Read Budgets Sheet
@@ -51,9 +50,10 @@ const ExcelUpload = () => {
                     monthYear: row.MonthYear,
                     category: row.Category.toLowerCase(),
                     budget: parseFloat(row.Budget),
-                    type: row.Type,
+                    type: row.Type.toLowerCase(),
                 };
                 dispatch(addBudget(budget));
+                console.log("uploaded budget",budget)
             });
         };
 

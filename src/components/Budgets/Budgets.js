@@ -29,14 +29,15 @@ function Budgets({handleAdd}) {
             : <div className="budgets-list" >
                     {Object.entries(budgets.categories).map(([key, value]) => {
                         console.log("Budgest Comp category", key, value)
-                        const { budget, totalSpent } = value;
+                        const { budget, remaining, totalSpent } = value;
                         const category = key;
 
                         return (
                             <Budget 
                                 category={category} 
-                                budget={(budget)}
+                                budget={budget}
                                 total={totalSpent}
+                                remaining={remaining}
                             />
                         )
                     })}

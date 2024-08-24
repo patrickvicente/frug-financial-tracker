@@ -76,7 +76,6 @@ function Dashboard() {
                         <FinancesChart totals={totalsByMonth} />
                     </div>
                     <div className="card expenses-analytics">
-                        Expenses
                         <ExpenseChart expenses={budgetCategories.filter(cat => cat.type === "expense")} />
                     </div>
                     <div className="card transactions">

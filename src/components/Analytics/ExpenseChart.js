@@ -1,25 +1,37 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import "./chart.css";
-import {Chart, ArcElement} from 'chart.js'
-Chart.register(ArcElement)
+import { Chart, ArcElement } from 'chart.js';
+Chart.register(ArcElement);
 
-function ExpenseChart({expenses}) {
-    const expenseData = expenses && expenses.length > 0 ? expenses.map(expense => expense.totalSpent) : [];
-    const categories = expenses && expenses.length > 0 ? expenses.map(expense => expense.category) : [];
-    console.log("chart categories",categories)
-    const data={
+function ExpenseChart({ expenses }) {
+   // Sort expenses from highest to lowest by totalSpent
+   const sortedExpenses = expenses && expenses.length > 0 
+   ? [...expenses].sort((a, b) => a.totalSpent - b.totalSpent) 
+   : [];
+
+    const expenseData = sortedExpenses.map(expense => Math.round(expense.totalSpent));
+    const categories = sortedExpenses.map(expense => expense.category);
+    console.log("chart categories", categories);
+    const totalSpent = expenseData.reduce((sum, expense) => sum + expense, 0);
+    
+    const data = {
         labels: categories,
         datasets: [
             {
                 label: "expense",
                 data: expenseData,
                 backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
+                    '#15AD70', // Original Green
+                    '#1E90FF', // Blue
+                    '#8A2BE2', // Purple
+                    '#20B2AA', // Teal
+                    '#FFA500', // Orange
+                    '#FF69B4', // Pink
+                    '#FFD700', // Yellow
+                    '#FF6347', // Red
                 ],
-                hoverOffset: 1,
+                hoverOffset: 10,
                 borderColor: "transparent",
             }
         ]
@@ -28,33 +40,63 @@ function ExpenseChart({expenses}) {
     const options = {
         plugins: {
             legend: {
-                display: true, // Show the legend
+                display: false, // Hide the legend
             },
             tooltip: {
                 callbacks: {
-                    label: function(context) {
+                    label: function (context) {
                         let label = context.label || '';
 
                         if (label) {
                             label += ': ';
                         }
-                        label += context.raw;
+                        const value = context.raw;
+                        const percentage = ((value / totalSpent) * 100).toFixed(2);
+                        label += `${percentage}%`;
                         return label;
                     }
                 }
-            }
+            },
+        },
+        cutout: "75%" // Hollow center for text
+    };
+
+    const centerTextPlugin = {
+        id: 'centerText',
+        beforeDraw: function (chart) {
+            const { ctx, width, height } = chart;
+            ctx.save();
+
+            // Draw "Total Expenses" with 18px font size
+            ctx.font = '16px inter';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#F1F0F5'; // Custom color for the text
+
+            ctx.fillText('Total Expenses', width / 2, height / 2 - 10); // Adjusting the Y position to align text correctly
+
+            // Draw totalSpent amount with 20px font size
+            ctx.font = '20px inter';
+            ctx.fillText(`$${totalSpent.toLocaleString()}`, width / 2, height / 2 + 15); // Adjusting the Y position for the amount
+
+            ctx.restore();
         }
     };
 
     return (
         <div className="chart-container">
             {categories && categories.length > 0 ? (
-                <Doughnut className="chart-expense" data={data} options={options}/>
+                <Doughnut
+                    className="chart-expense"
+                    data={data}
+                    options={options}
+                    plugins={[centerTextPlugin]}
+                />
             ) : (
                 <p>No data found</p>
             )}
         </div>
     );
-};
+}
 
 export default ExpenseChart;

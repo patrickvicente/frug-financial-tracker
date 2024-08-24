@@ -10,7 +10,7 @@ function TransactionForm({closeModal, type}) {
     const [ formData, setFormData ] = useState({
         type: type || "income",
         description: "",
-        date: new Date().toISOString().split("T")[0],
+        date: new Date().toISOString().split("T")[0], // init date for today
         amount: "",
         category: "",
         newCategory: "",
