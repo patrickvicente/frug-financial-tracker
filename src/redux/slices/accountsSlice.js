@@ -3,7 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     ac1: {
         name: "spending",
-        type: "spending",
+        type: "spending", // spending, savings, investment, credit, loan
+        startingBalance: 0,
+        currentBalance: 0,
+        transactionIds: [],
+    },
+    ac2: {
+        name: "nab",
+        type: "credit", // spending, savings, investment, credit, loan
         startingBalance: 0,
         currentBalance: 0,
         transactionIds: [],
@@ -21,7 +28,7 @@ const accountsSlice = createSlice({
                 return
             }
             state[id] = {
-                name, 
+                name: name.toLowerCase(), 
                 type, 
                 startingBalance, 
                 currentBalance: startingBalance, 

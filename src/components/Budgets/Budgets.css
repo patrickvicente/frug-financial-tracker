@@ -20,7 +20,7 @@
 }
 
 .budgets-list {
-    max-height: 400px; /* Adjust the height as needed */
+    max-height: 400px;
     overflow-y: auto; /* Enables vertical scrolling */
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */

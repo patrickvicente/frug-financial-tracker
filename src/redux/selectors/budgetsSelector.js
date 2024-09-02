@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import { createSelector } from "reselect";
 
 // Select all budgets

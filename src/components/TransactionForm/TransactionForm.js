@@ -5,6 +5,8 @@ import { addTransaction } from "../../redux/slices/transactionsSlice";
 import { addBudgetTransaction } from "../../redux/slices/budgetsSlice";
 import Button from "../common/Button";
 import { selectBudgetCategories } from "../../redux/selectors/budgetsSelector";
+import { selectAccountsForDropdown } from "../../redux/selectors/accountsSelector";
+import { addAccountsTransaction } from "../../redux/slices/accountsSlice";
 
 function TransactionForm({closeModal, type}) {
     const [ formData, setFormData ] = useState({
@@ -14,14 +16,15 @@ function TransactionForm({closeModal, type}) {
         amount: "",
         category: "",
         newCategory: "",
+        account: "", // account ID default spending
     });
     const categories = useSelector(selectBudgetCategories);
-
-    
+    const accounts = useSelector(selectAccountsForDropdown);
 
     const dispatch = useDispatch();
 
     const handleChange = e => {
+        console.log("Field Changed:", e.target.name, "Value:", e.target.value); // Add this lin
         setFormData({
             ...formData, 
             [e.target.name]: e.target.value
@@ -57,9 +60,10 @@ function TransactionForm({closeModal, type}) {
             amount: parseFloat(formData.amount),
             category: selectedCategory,
         };
-
+        console.log("Selected Account ID:", formData.account);
         dispatch(addTransaction(newTransaction))
         dispatch(addBudgetTransaction(newTransaction));
+        dispatch(addAccountsTransaction({ id: formData.account, transaction: newTransaction }));
         
         console.log("Dispatched addTransaction:", newTransaction)
         closeModal();
@@ -67,12 +71,19 @@ function TransactionForm({closeModal, type}) {
 
     return (
         <div className="form">
+            Add a New Transaction
             <form onSubmit={handleSubmit} className="form-txn">
                 <div className="input-container">
                     <input type="text" placeholder="Description" name="description" value={formData.description} onChange={handleChange} required/>
                 </div>
                 <div className="input-container">
                     <input type="number" placeholder="Amount" name="amount" value={formData.amount} onChange={handleChange} required/>
+                </div>
+                <div className="input-container">
+                    <select className="transaction-account" name="account" onChange={handleChange} value={formData.account}>
+                        <option value="" disabled>Select Account</option>
+                        {accounts.length > 0 && accounts.map((account) => <option key={account.id} value={account.id}>{account.name}</option>)}
+                    </select>
                 </div>
                 <div className="input-container">
                     <input type="date" placeholder="Date" name="date" value={formData.date} onChange={handleChange} required/>
@@ -102,6 +113,7 @@ function TransactionForm({closeModal, type}) {
                         />
                     )}
                 </div>
+                
                 <Button
                     label={`Add ${ type === "income" ? "Income" : "Expense"}`} 
                     className="button-txn" type="submit" 

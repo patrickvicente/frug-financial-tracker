@@ -39,6 +39,6 @@
 }
 
 .budget-container:hover {
-    background-color: rgb(253, 249, 249, .1);
+    background-color: rgb(253, 249, 249, .05);
     border-radius: 5px;
 }

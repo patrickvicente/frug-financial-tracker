@@ -13,6 +13,8 @@ import Budgets from "../Budgets/Budgets";
 import BudgetForm from "../BudgetForm/BudgetForm";
 import ExpenseChart from "../Analytics/ExpenseChart";
 import FinancesChart from "../Analytics/FinancesChart";
+import Accounts from "../Accounts/Accounts";
+import AccountForm from "../AccountForm/AccountForm";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
@@ -84,14 +86,20 @@ function Dashboard() {
                     <div className="card budgets-container">
                         <Budgets handleAdd={handleAdd} />
                     </div>
-                    <div className="card accounts">Accounts</div>
+                    <div className="card accounts">
+                        <Accounts handleAdd={handleAdd} />
+                    </div>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={closeModal} >
                 {
                     formType === "transaction" 
                     ? <TransactionForm closeModal={closeModal} type={transactionType} />
-                    : <BudgetForm closeModal={closeModal} />
+                    : formType === "budget"
+                    ? <BudgetForm closeModal={closeModal} />
+                    : formType === "account"
+                    ? <AccountForm closeModal={closeModal} />
+                    : null
                 }
             </Modal>
         </div>
