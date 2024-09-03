@@ -2,13 +2,12 @@ import React from "react";
 import "./Budget.css";
 import { formatCurrency } from "../../utils/utils";
 
-function Budget({ category, budget, total, remaining }) {
-
+function Budget({ category, budget, total, remaining, id }) {
     const percentSpend = (total / budget) * 100;
     const progress = percentSpend > 100 ? 100 : percentSpend;
 
     return (
-        <div className="budget-container">
+        <div id={id} className="budget-container" >
             <div className="budget-details">
                 <p>{category}</p>
                 <p>{formatCurrency(remaining)} <span>left</span></p>

@@ -151,8 +151,7 @@ const budgetsSlice = createSlice({
             // Update the overall total spent for the month
             state.byMonth[yearMonth].totalSpent += amount;
 
-            // Recalculate the overall remaining budget for the month
-            state.byMonth[yearMonth].remaining = state.byMonth[yearMonth].totalBudget - state.byMonth[yearMonth].totalSpent;
+            
         },
     }
 });

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./BudgetForm.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBudget } from "../../redux/slices/budgetsSlice";
 import Button from "../common/Button";
+import { selectBudgetByMonth } from "../../redux/selectors/budgetsSelector";
 
 function BudgetForm({closeModal}) {
     const [ formData, setFormData ] =  useState({
@@ -11,6 +12,7 @@ function BudgetForm({closeModal}) {
         budget: "",
         monthYear: new Date().toISOString().split("T")[0].slice(0, 7), // Init form with the current month
     });
+    const monthlyBudget = useSelector((state) => selectBudgetByMonth(state, formData.monthYear));
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
@@ -33,7 +35,7 @@ function BudgetForm({closeModal}) {
     }
 
     return (
-        <div className="form">
+        <div className="form-container">
             <form onSubmit={handleSubmit} className="form-budget" >
                 <div className="input-container">
                     <input 

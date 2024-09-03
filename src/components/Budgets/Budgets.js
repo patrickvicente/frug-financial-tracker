@@ -4,13 +4,19 @@ import "./Budgets.css";
 import Button from "../common/Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSelector } from "react-redux";
-import { selectBudgetsByMonth } from "../../redux/selectors/budgetsSelector";
+import { selectBudgetByMonth, selectBudgetsByMonth } from "../../redux/selectors/budgetsSelector";
 import { formatMonthYear, getNextMonth, getPreviousMonth, getThisMonth } from "../../utils/utils";
 
 function Budgets({handleAdd}) {
-    const budgetsByMonth = useSelector(selectBudgetsByMonth);
     const [ monthYear, setMonthYear ] = useState(getThisMonth())
-    const budgets = budgetsByMonth[monthYear];
+    const budgets = useSelector((state) => selectBudgetByMonth(state, monthYear));
+    let remainingToBudget = null;
+    let totalBudget = null;
+    if (budgets) {
+        remainingToBudget = budgets.remaining; // remaining budget for the month
+        totalBudget = budgets.totalBudget; // totalb budget for the month
+    }
+    
     
     return (
         <div className="budgets" >
@@ -27,6 +33,7 @@ function Budgets({handleAdd}) {
             {/* Handles cases where budget is not set */}
             {!budgets ? <p>No budget set.</p>
             : <div className="budgets-list" >
+                    <Budget category="remaining to budget" remaining={remainingToBudget} budget={remainingToBudget} total={totalBudget} id="remaining"/>
                     {Object.entries(budgets.categories).map(([key, value]) => {
                         console.log("Budgest Comp category", key, value)
                         const { budget, remaining, totalSpent } = value;

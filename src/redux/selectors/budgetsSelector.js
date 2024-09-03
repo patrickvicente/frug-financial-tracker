@@ -23,8 +23,8 @@ import { createSelector } from "reselect";
     return Object.keys(state.budgets.byMonth?.[monthYear]?.categories ?? {});
  };
 
- export const selectBudgetsByMonth = (state) => {
-   return state.budgets.byMonth;
+ export const selectBudgetByMonth = (state, yearMonth) => {
+   return state.budgets?.byMonth?.[yearMonth] || null;
  };
  
 // Extracts all budgets with totalSpent
