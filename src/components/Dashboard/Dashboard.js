@@ -29,7 +29,7 @@ function Dashboard() {
     console.log("Expenses", expenseTransactions);
     console.log("Budget Categories", budgetCategories);
 
-    const handleAdd = (form, txnType) => {
+    const handleForm = (form, txnType) => {
         setFormType(form)
         setTransactionType(txnType);
         setModalOpen(true);
@@ -53,7 +53,7 @@ function Dashboard() {
                         </div>
                         <div className="card-info">
                             Income<br/>{formatCurrency(totals.income)}
-                            <Button label="Add" className="button-add" onClick={() => handleAdd("transaction","income")} />
+                            <Button label="Add" className="button-add" onClick={() => handleForm("transaction","income")} />
                         </div>
                     </div>
                     <div className="card expenses">
@@ -62,7 +62,7 @@ function Dashboard() {
                         </div>
                         <div className="card-info">
                             Expenses<br/>{formatCurrency(totals.expenses)}
-                            <Button label="Add" className="button-add" onClick={() => handleAdd("transaction","expense")} />
+                            <Button label="Add" className="button-add" onClick={() => handleForm("transaction","expense")} />
                         </div>
                     </div>
                     <div className="card savings">
@@ -77,17 +77,17 @@ function Dashboard() {
                         <FinancesChart totals={totalsByMonth} />
                     </div>
                     <div className="card expenses-analytics">
-                        <ExpenseChart expenses={budgetCategories.filter(cat => cat.type === "expense")} />
+                        <ExpenseChart expenses={budgetCategories} />
                     </div>
                     <div className="card transactions">
                         Transactions
                         <Transactions transactions={transactions} budgets={budgets} />
                     </div>
                     <div className="card budgets-container">
-                        <Budgets handleAdd={handleAdd} />
+                        <Budgets handleForm={handleForm} />
                     </div>
                     <div className="card accounts">
-                        <Accounts handleAdd={handleAdd} />
+                        <Accounts handleForm={handleForm} />
                     </div>
             </div>
 
@@ -98,7 +98,7 @@ function Dashboard() {
                     : formType === "budget"
                     ? <BudgetForm closeModal={closeModal} />
                     : formType === "account"
-                    ? <AccountForm closeModal={closeModal} />
+                    ? <AccountForm closeModal={closeModal} type={transactionType}  />
                     : null
                 }
             </Modal>

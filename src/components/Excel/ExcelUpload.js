@@ -57,7 +57,8 @@ const ExcelUpload = ({ closeModal }) => {
                 };
 
                 dispatch(addTransaction(transaction));
-                dispatch(addBudgetTransaction(transaction));
+                // Update budget only fo expense
+                transaction.type === "expense" && dispatch(addBudgetTransaction(transaction));
                 dispatch(addAccountsTransaction({ id: accountId, transaction }));
             });
 
@@ -72,6 +73,10 @@ const ExcelUpload = ({ closeModal }) => {
                     budget: parseFloat(row.Budget),
                     type: row.Type.toLowerCase(),
                 };
+                if (isNaN(budget.budget) || budget.budget <= 0) {
+                    console.warn(`Skipping invalid or zero budget for category: ${budget.category}`);
+                    return;  // Skip if budget is not a valid number or zero
+                }
                 dispatch(addBudget(budget));
                 console.log("uploaded budget", budget);
             });
@@ -93,7 +98,7 @@ const ExcelUpload = ({ closeModal }) => {
             ["IMPORTANT!"],
             ["Make sure to add the accounts first on the website"],
             ["1. Transactions Sheet"],
-            ["- 'Date': Enter the transaction date in MM/DD/YYYY format."],
+            ["- 'Date': Enter the transaction date in DD/MM/YYYY format."],
             ["- 'Type': Specify whether the transaction is 'income' or 'expense'."],
             ["- 'Description': Provide a brief description of the transaction."],
             ["- 'Amount': Enter the transaction amount as a number (e.g., 100.50)."],
@@ -147,7 +152,11 @@ const ExcelUpload = ({ closeModal }) => {
             ? <>
                 <p>NOTE: Please use the template before uploading the excel file</p>
                 <Button className="button-download" onClick={handleDownloadTemplate} label="Download Excel Template"/>
+                <div className="input-container">
+                    <input type="file" onChange={handleFileChange} />
+                </div>
             </>
+
             : <div className="input-container">
                 <input type="file" onChange={handleFileChange} />
             </div>

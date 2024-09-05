@@ -4,18 +4,13 @@ import "./Budgets.css";
 import Button from "../common/Button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSelector } from "react-redux";
-import { selectBudgetByMonth, selectBudgetsByMonth } from "../../redux/selectors/budgetsSelector";
+import { selectBudgetByMonth } from "../../redux/selectors/budgetsSelector";
 import { formatMonthYear, getNextMonth, getPreviousMonth, getThisMonth } from "../../utils/utils";
 
-function Budgets({handleAdd}) {
+function Budgets({handleForm}) {
     const [ monthYear, setMonthYear ] = useState(getThisMonth())
     const budgets = useSelector((state) => selectBudgetByMonth(state, monthYear));
-    let remainingToBudget = null;
-    let totalBudget = null;
-    if (budgets) {
-        remainingToBudget = budgets.remaining; // remaining budget for the month
-        totalBudget = budgets.totalBudget; // totalb budget for the month
-    }
+    const { totalSpent = null, totalBudget = null, remaining = null } = budgets || {};
     
     
     return (
@@ -27,13 +22,19 @@ function Budgets({handleAdd}) {
                     {formatMonthYear(monthYear)}
                     <Icon className="icon icon-side" icon="iconamoon:arrow-right-2-thin" onClick={() => setMonthYear(getNextMonth(monthYear))}/>
                 </div>
-                <Button label="Add" className="button-add" onClick={() => handleAdd("budget")} />
+                <Button label="Add" className="button-add" onClick={() => handleForm("budget")} />
             </div>
             
             {/* Handles cases where budget is not set */}
             {!budgets ? <p>No budget set.</p>
             : <div className="budgets-list" >
-                    <Budget category="remaining to budget" remaining={remainingToBudget} budget={remainingToBudget} total={totalBudget} id="remaining"/>
+                    {/* Component for total month's budget */}
+                    <Budget 
+                        category={`Budget for ${formatMonthYear(monthYear).split(" ")[0]}`} 
+                        remaining={remaining} budget={totalBudget} 
+                        total={totalSpent} 
+                        id="monthly-budget"
+                    />
                     {Object.entries(budgets.categories).map(([key, value]) => {
                         console.log("Budgest Comp category", key, value)
                         const { budget, remaining, totalSpent } = value;

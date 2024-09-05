@@ -10,6 +10,13 @@ const initialState = {
     },
     ac2: {
         name: "nab",
+        type: "savings", // spending, savings, investment, credit, loan
+        startingBalance: 0,
+        currentBalance: 0,
+        transactionIds: [],
+    },
+    ac3: {
+        name: "nab qantas",
         type: "credit", // spending, savings, investment, credit, loan
         startingBalance: 0,
         currentBalance: 0,

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectAllAccounts } from "../../redux/selectors/accountsSelector";
 import Account from "./Account";
 
-function Accounts({ handleAdd, handleEdit }) {
+function Accounts({ handleForm, handleEdit }) {
     const accounts = useSelector(selectAllAccounts);
 
     return (
@@ -16,13 +16,13 @@ function Accounts({ handleAdd, handleEdit }) {
                         &#x22EE; {/* HTML Entity for vertical ellipsis */}
                     </div>
                     <div className="dropdown-menu">
-                        <div className="dropdown-item" onClick={() => handleAdd("account")}>
+                        <div className="dropdown-item" onClick={() => handleForm("account")}>
                             Add
                         </div>
                         <div className="dropdown-item" onClick={() => handleEdit()}>
                             Edit
                         </div>
-                        <div className="dropdown-item" onClick={() => handleEdit()}>
+                        <div className="dropdown-item" onClick={() => handleForm("account", "transfer")}>
                             Transfer
                         </div>
                     </div>

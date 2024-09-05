@@ -62,7 +62,8 @@ function TransactionForm({closeModal, type}) {
         };
         console.log("Selected Account ID:", formData.account);
         dispatch(addTransaction(newTransaction))
-        dispatch(addBudgetTransaction(newTransaction));
+        // check if it is an expecnse transaction then update budgetsSlice
+        newTransaction.type === "expense" && dispatch(addBudgetTransaction(newTransaction));
         dispatch(addAccountsTransaction({ id: formData.account, transaction: newTransaction }));
         
         console.log("Dispatched addTransaction:", newTransaction)
