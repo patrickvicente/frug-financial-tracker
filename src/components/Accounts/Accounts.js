@@ -1,32 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Accounts.css";
 import { useSelector } from "react-redux";
 import { selectAllAccounts } from "../../redux/selectors/accountsSelector";
 import Account from "./Account";
+import OptionsMenu from "../common/OptionsMenu";
+import { set } from "date-fns";
 
 function Accounts({ handleForm, handleEdit }) {
     const accounts = useSelector(selectAllAccounts);
+    const [ isEditMode, setIsEditMode] = useState(false); //Track edit mode state
+
+    const toggleEditMode = () => {
+        setIsEditMode((prevState) => !prevState); // Toggle the edit mode
+    };
 
     return (
         <div className="accounts">
             <div className="card-header">
                 Accounts
-                <div className="dropdown">
-                    <div className="three-dots">
-                        &#x22EE; {/* HTML Entity for vertical ellipsis */}
+                <OptionsMenu >
+                    <div className="dropdown-item" onClick={() => handleForm("account")}>
+                        Add
                     </div>
-                    <div className="dropdown-menu">
-                        <div className="dropdown-item" onClick={() => handleForm("account")}>
-                            Add
-                        </div>
-                        <div className="dropdown-item" onClick={() => handleEdit()}>
-                            Edit
-                        </div>
-                        <div className="dropdown-item" onClick={() => handleForm("account", "transfer")}>
-                            Transfer
-                        </div>
+                    <div className="dropdown-item" onClick={toggleEditMode}>
+                        Edit
                     </div>
-                </div>
+                    <div className="dropdown-item" onClick={() => handleForm("account", "transfer")}>
+                        Transfer
+                    </div>
+                </OptionsMenu>
+                
             </div>
             {/* Checks if there is an existing account */}
             {!accounts ? (
@@ -45,6 +48,7 @@ function Accounts({ handleForm, handleEdit }) {
                                 name={name}
                                 type={type}
                                 currentBalance={currentBalance}
+                                isEditMode={isEditMode}
                             />
                         );
                     })}

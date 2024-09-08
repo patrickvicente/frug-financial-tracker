@@ -32,6 +32,6 @@ export const selectAccountsForDropdown = createSelector(
     [selectAccountsState],
     (accounts) => Object.entries(accounts).map(([key, value]) => ({
         id: key,
-        name: value.name
+        name: value.name.toUpperCase()
     }))
 );

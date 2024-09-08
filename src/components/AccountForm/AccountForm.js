@@ -4,6 +4,7 @@ import {v4 as uuidv4 } from 'uuid';
 import "./AccountForm.css";
 import Button from "../common/Button";
 import { addAccount } from "../../redux/slices/accountsSlice";
+import TransferForm from "./TransferForm";
 
 function AccountForm({closeModal, type}) {
     const [ formData, setFormData ] = useState({
@@ -31,8 +32,7 @@ function AccountForm({closeModal, type}) {
         <div className="accounts-form form">
 
             { type === "transfer" ? 
-                <>
-                </>
+                <TransferForm closeModal={closeModal} />
             :
                 <form onSubmit={handleSubmit} className="form-accounts">
                     <div className="input-container">
@@ -49,7 +49,7 @@ function AccountForm({closeModal, type}) {
                         </select>
                     </div>
                     <div className="input-container">
-                        <input type="text" placeholder="Staring Balance" name="startingBalance" value={formData.startingBalance} onChange={handleChange} inputMode="decimal" pattern="^\d*(\.\d{0,2})?$" />
+                        <input type="text" placeholder="Starting Balance" name="startingBalance" value={formData.startingBalance} onChange={handleChange} inputMode="decimal" pattern="^\d*(\.\d{0,2})?$" />
                     </div>
                     <Button label="Add New Account" type="submit" className="button-txn" />
                 </form>

@@ -79,10 +79,7 @@ function Dashboard() {
                     <div className="card expenses-analytics">
                         <ExpenseChart expenses={budgetCategories} />
                     </div>
-                    <div className="card transactions">
-                        Transactions
-                        <Transactions transactions={transactions} budgets={budgets} />
-                    </div>
+                    <Transactions heading="Transactions" transactions={transactions} budgets={budgets} />
                     <div className="card budgets-container">
                         <Budgets handleForm={handleForm} />
                     </div>

@@ -42,20 +42,12 @@ function TransactionsView() {
             <div className="card filter-container">
                 <Filter className="card filter" transactions={transactions} onFilterChange={setFilterDate} />  
             </div>
-            <div className="card income-transactions">
-                <div className="card-header">
-                    Income
+                <Transactions heading="Income" className="income-transactions" transactions={getFilteredTransactions('income')} budgets={budgets}>
                     <Button label="Add Income" className="button-add" onClick={() => handleAdd("transaction", "income")} />
-                </div>
-                <Transactions transactions={getFilteredTransactions('income')} budgets={budgets} />
-            </div>
-            <div className="card expense-transactions">
-                <div className="card-header">
-                    Expenses
+                </Transactions>
+                <Transactions heading="Expenses" className="expense-transactions" transactions={getFilteredTransactions('expense')} budgets={budgets} >
                     <Button label="Add Expense" className="button-add" onClick={() => handleAdd("transaction", "expense")}/>
-                </div>
-                <Transactions transactions={getFilteredTransactions('expense')} budgets={budgets} />
-            </div>
+                </Transactions>
             <div className="card budgets-container">
                 <Budgets budgets={budgets} handleAdd={handleAdd} />
             </div>

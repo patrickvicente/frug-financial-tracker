@@ -17,7 +17,7 @@ const ExcelUpload = ({ closeModal }) => {
     // Retrieve accounts from the Redux store
     const accounts = useSelector(selectAccountsForDropdown);
     const accountMap = accounts.reduce((map, account) => {
-        map[account.name] = account.id;
+        map[account.name.toLowerCase()] = account.id;
         return map;
     }, {});
 
@@ -55,6 +55,7 @@ const ExcelUpload = ({ closeModal }) => {
                     category: row.Category,
                     account: accountId
                 };
+                console.log(transaction);
 
                 dispatch(addTransaction(transaction));
                 // Update budget only fo expense

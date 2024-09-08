@@ -1,0 +1,36 @@
+.three-dots {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: linear-gradient(107deg, #3D3D3D 8.78%, #1F1F1F 92.99%);
+    border: 0.2px solid #797979;
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: auto;
+    font-size: 12px;
+    font-family: inter;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Show the dropdown on hover */
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #15AD70;
+}

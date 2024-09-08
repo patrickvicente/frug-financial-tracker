@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
 import Transaction from "../Transaction/Transaction";
 import "./Transactions.css";
+import OptionsMenu from "../common/OptionsMenu";
 
-function Transactions({transactions}) {
+function Transactions({heading, transactions, className, children}) {
 
     useEffect(() => {
         console.log("Transactions component re-rendered with transactions:", transactions);
@@ -16,22 +17,39 @@ function Transactions({transactions}) {
     const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     return (
-        <div className="transactions-list">
-            {sortedTransactions.map((transaction) => {
-                const { id, description, amount, category, date, type } = transaction;
+        <div className={`card transactions ${className}`}>
+            <div className="card-header">
+                {heading}
+                {children}
+                <OptionsMenu >
+                    <div className="dropdown-item" >
+                        Edit
+                    </div>
+                    <div className="dropdown-item" >
+                        Delete
+                    </div>
+                    <div className="dropdown-item" >
+                        Transfer
+                    </div>
+                </OptionsMenu>
+            </div>
+            <div className="transactions-list">
+                {sortedTransactions.map((transaction) => {
+                    const { id, description, amount, category, date, type } = transaction;
 
-                return ( 
-                    <Transaction
-                        key={id}
-                        id={id}
-                        description={description}
-                        amount={amount}
-                        category={category}
-                        date={date}
-                        type={type}
-                    />
-                );
-            })}
+                    return ( 
+                        <Transaction
+                            key={id}
+                            id={id}
+                            description={description}
+                            amount={amount}
+                            category={category}
+                            date={date}
+                            type={type}
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 };

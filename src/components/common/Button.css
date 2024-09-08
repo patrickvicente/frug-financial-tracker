@@ -1,5 +1,6 @@
 .btn {
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .button-add {
@@ -14,5 +15,17 @@
     border: 1px solid #15AD70;
     color: #15AD70;
     font-weight: bold;
+}
+
+.button-edit{
+    background-color: #FFD700;
+    color: black;
+    margin-right: 5px;
+}
+
+.button-edit:hover {
+    background-color: transparent;
+    border: 1px solid #FFD700;
+    color: antiquewhite;
 }
 
