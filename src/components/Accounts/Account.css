@@ -6,6 +6,7 @@
     width: 100%;
     border-bottom: #797979 solid 1px;
     padding: 0 5px;
+    cursor: pointer;
 }
 
 .account-info {

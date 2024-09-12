@@ -3,7 +3,7 @@ import "./Transaction.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { formatCurrency } from "../../utils/utils";
 
-function Transaction({type, description, date, category, id, amount}) {
+function Transaction({type, description, date, category, id, amount, onClick}) {
 
     const typeIcon = type === "income" ? <Icon className="icon icon-txn" icon="solar:round-arrow-down-bold" /> 
         : <Icon className="icon icon-txn" icon="solar:round-arrow-up-bold" />
@@ -11,7 +11,8 @@ function Transaction({type, description, date, category, id, amount}) {
     
     return (
         <div id={id}
-            className={`Transaction ${type.toLowerCase() === "income" ? "income-txn" : "expense-txn"}`}
+            className={`transaction-container ${type.toLowerCase() === "income" ? "income-txn" : "expense-txn"}`}
+            onClick={onClick}
         >
             <div className="transaction-content">
                 {typeIcon}

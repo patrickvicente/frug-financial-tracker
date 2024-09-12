@@ -3,10 +3,10 @@ import "./Account.css";
 import { formatCurrency } from "../../utils/utils";
 import Button from "../common/Button";
 
-function Account({id, name, type, currentBalance, isEditMode}) {
+function Account({id, name, type, currentBalance, isEditMode, onClick}) {
 
     return (
-        <div className="account-container" key={id} type={type}>
+        <div className="account-container" key={id} type={type} onClick={onClick}>
             {isEditMode && (
                 <Button label="edit" className="button-edit"/>
             )}

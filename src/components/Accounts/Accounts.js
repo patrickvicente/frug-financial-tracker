@@ -4,15 +4,9 @@ import { useSelector } from "react-redux";
 import { selectAllAccounts } from "../../redux/selectors/accountsSelector";
 import Account from "./Account";
 import OptionsMenu from "../common/OptionsMenu";
-import { set } from "date-fns";
 
-function Accounts({ handleForm, handleEdit }) {
+function Accounts({ handleForm, openDetailModal  }) {
     const accounts = useSelector(selectAllAccounts);
-    const [ isEditMode, setIsEditMode] = useState(false); //Track edit mode state
-
-    const toggleEditMode = () => {
-        setIsEditMode((prevState) => !prevState); // Toggle the edit mode
-    };
 
     return (
         <div className="accounts">
@@ -21,9 +15,6 @@ function Accounts({ handleForm, handleEdit }) {
                 <OptionsMenu >
                     <div className="dropdown-item" onClick={() => handleForm("account")}>
                         Add
-                    </div>
-                    <div className="dropdown-item" onClick={toggleEditMode}>
-                        Edit
                     </div>
                     <div className="dropdown-item" onClick={() => handleForm("account", "transfer")}>
                         Transfer
@@ -48,7 +39,7 @@ function Accounts({ handleForm, handleEdit }) {
                                 name={name}
                                 type={type}
                                 currentBalance={currentBalance}
-                                isEditMode={isEditMode}
+                                onClick={() => openDetailModal("account",{id, name, type, currentBalance})}
                             />
                         );
                     })}

@@ -3,15 +3,11 @@ import Transaction from "../Transaction/Transaction";
 import "./Transactions.css";
 import OptionsMenu from "../common/OptionsMenu";
 
-function Transactions({heading, transactions, className, children}) {
+function Transactions({heading, transactions, className, children, openDetailModal}) {
 
     useEffect(() => {
         console.log("Transactions component re-rendered with transactions:", transactions);
       }, [transactions]);
-
-    if (!transactions || transactions.length === 0) {
-        return <p>No transactions to display.</p>;
-    }
 
     // Sort transactions by date in descending order
     const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -34,7 +30,9 @@ function Transactions({heading, transactions, className, children}) {
                 </OptionsMenu>
             </div>
             <div className="transactions-list">
-                {sortedTransactions.map((transaction) => {
+                { !transactions || transactions.length === 0
+                ? <p>No transactions to display.</p>
+                : sortedTransactions.map((transaction) => {
                     const { id, description, amount, category, date, type } = transaction;
 
                     return ( 
@@ -46,6 +44,7 @@ function Transactions({heading, transactions, className, children}) {
                             category={category}
                             date={date}
                             type={type}
+                            onClick={() => openDetailModal("transaction", {description, category, date, amount, type})}
                         />
                     );
                 })}

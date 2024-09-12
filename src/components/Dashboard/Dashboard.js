@@ -15,11 +15,15 @@ import ExpenseChart from "../Analytics/ExpenseChart";
 import FinancesChart from "../Analytics/FinancesChart";
 import Accounts from "../Accounts/Accounts";
 import AccountForm from "../AccountForm/AccountForm";
+import DetailModal from "../common/DetailModal";
 
 function Dashboard() {
     const [ isModalOpen, setModalOpen ] = useState(false);
+    const [ isDetailModalOpen, setDetailModalOpen ] = useState(false);
     const [ formType, setFormType ] = useState("transaction")
     const [ transactionType, setTransactionType ] = useState("");
+    const [ selectedDetail, setSelectedDetail ] = useState(null);
+    const [ detailType, setDetailType ] = useState("");
     const transactions = useSelector(selectAllTransactions);
     const budgets = useSelector(selectAllBudgets);
     const budgetCategories = useSelector(selectAllBudgetCategories);
@@ -35,6 +39,15 @@ function Dashboard() {
         setModalOpen(true);
     };
     const closeModal = () => setModalOpen(false);
+
+    // Modal used for account, transaction and budget details
+    const openDetailModal = (type, data) => {
+        setDetailType(type);
+        setSelectedDetail(data);
+        setDetailModalOpen(true);
+    };
+
+    const closeDetailModal = () => setDetailModalOpen(false);
     
     return (
         <div className="Dashboard">
@@ -79,16 +92,28 @@ function Dashboard() {
                     <div className="card expenses-analytics">
                         <ExpenseChart expenses={budgetCategories} />
                     </div>
-                    <Transactions heading="Transactions" transactions={transactions} budgets={budgets} />
+                    <Transactions 
+                        heading="Transactions" 
+                        transactions={transactions} 
+                        budgets={budgets} 
+                        openDetailModal={openDetailModal}
+                    />
                     <div className="card budgets-container">
-                        <Budgets handleForm={handleForm} />
+                        <Budgets 
+                            handleForm={handleForm} 
+                            openDetailModal={openDetailModal}
+                        />
                     </div>
                     <div className="card accounts">
-                        <Accounts handleForm={handleForm} />
+                        <Accounts 
+                            handleForm={handleForm} 
+                            openDetailModal={openDetailModal}
+                        />
                     </div>
             </div>
 
-            <Modal isOpen={isModalOpen} onClose={closeModal} >
+            {/*  Modal used for Forms */}
+            <Modal isOpen={isModalOpen} onClose={closeModal} className={`modal-${formType }`} >
                 {
                     formType === "transaction" 
                     ? <TransactionForm closeModal={closeModal} type={transactionType} />
@@ -99,6 +124,13 @@ function Dashboard() {
                     : null
                 }
             </Modal>
+            {/* Modal used for Details */}
+            <DetailModal 
+                isOpen={isDetailModalOpen}
+                onClose={closeDetailModal}
+                type={detailType}
+                data={selectedDetail}
+            />
         </div>
     )
 };

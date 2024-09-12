@@ -2,7 +2,7 @@ import React from "react";
 import "./Modal.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-function Modal({isOpen, onClose, children}) {
+function Modal({isOpen, onClose, children, className}) {
     if(!isOpen) return null;
 
     return (

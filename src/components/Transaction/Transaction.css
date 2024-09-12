@@ -1,4 +1,4 @@
-.Transaction {
+.transaction-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -8,6 +8,7 @@
     height: 35px;
     border-bottom: #797979 solid 1px;
     width: 100%;
+    cursor: pointer;
 }
 
 .transaction-content {
@@ -17,7 +18,7 @@
     width: 100%;
 }
 
-.Transaction p {
+.transaction-container p {
     margin: 0;
     padding: 0 10px;
     width: 20%;
