@@ -4,9 +4,8 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 const initializePassport = require('./config/passport'); // Init passport config
 const authRoutes = require('./routes/authRoutes');
-const accountRoutes = require('./routes/accountRoutes');
-const budgetRoutes = require('./routes/budgetRoutes');
-const transactionRoutes = require('./routes/transactiionRoutes');
+const userRoutes = require('./routes/userRoutes')
+const { isAuthenticated, isAuthorized } = require('./middleware/authMiddleware');
 
 dotenv.config(); // Loads the environment variables
 
@@ -20,7 +19,7 @@ app.use(express.urlencoded({extended: false})); // Parses URL-encoded payload
 // Set up session management
 app.use(
     session({
-        secret: process.env.SESSION.SECRET, // SECRET for the Session ID cookie
+        secret: process.env.SESSION_SECRET, // SECRET for the Session ID cookie
         resave: false,
         saveUninitialized: false,
     })
@@ -32,10 +31,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // register route for different functionalities
-app.use('/api/auth', authRoutes);
-app.use('/api/accounts', accountRoutes);
-app.use('/api/budgets', budgetRoutes);
-app.use('/api/transactions', transactionRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', isAuthenticated, userRoutes);
+
 
 // Start the server on the specified port
 app.listen(PORT, () => {
