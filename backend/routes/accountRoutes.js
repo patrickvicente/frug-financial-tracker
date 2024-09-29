@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const accountController = require('../controllers/accountController');
 
-router.use((req, res, next) => {
-    console.log('Params:', req.params);
-    next();
-});
 // Route for creating an account
 router.post('/', accountController.createAccount);
 // Route for fetching all accounts for a user

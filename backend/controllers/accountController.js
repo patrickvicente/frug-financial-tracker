@@ -1,16 +1,17 @@
 const pool = require('../config/db');
-const secureQuery = require('../helpers/dbHelpers');
+const { secureQuery } = require('../helpers/dbHelpers');
 
 // create a new account
 exports.createAccount = async (req, res) => {
-    const { user_id, name, type, starting_balance } = req.body;
+    const userId = req.user.id;
+    const { name, type, starting_balance } = req.body;
 
     try {
         const result = await pool.query(
             `INSERT INTO accounts (user_id, name, type, starting_balance, current_balance) 
             VALUES ($1, $2, $3, $4, $4)
             RETURNING *`, // Set current_balance = starting_balance
-            [user_id, name, type, starting_balance]
+            [userId, name, type, starting_balance]
         );
 
         res.status(201).json({ account: result.rows[0], message: 'Account created successfully'});
